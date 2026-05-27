@@ -1,0 +1,60 @@
+{
+  "meals": [
+    {
+      "date": "2026-05-27",
+      "time": "8:00",
+      "foods": "Monster Energy 330ml + Protein Wafer Bar (24g protein)",
+      "calories": 380,
+      "breakdown": [
+        "Monster Energy 330ml: ~160 kcal",
+        "Protein Wafer Bar (24g protein): ~220 kcal"
+      ],
+      "notes": "Monster ~160 kcal, protein bar ~220 kcal = ~380 kcal",
+      "protein_g": 24,
+      "carbs_g": 58,
+      "fat_g": 7
+    },
+    {
+      "date": "2026-05-27",
+      "time": "11:00",
+      "foods": "3 organic eggs between 2 small burger buns + lettuce, onion, sauces",
+      "calories": 540,
+      "breakdown": [
+        "3 organic eggs: ~210 kcal",
+        "2 small burger buns: ~260 kcal",
+        "Lettuce + onion + sauces: ~70 kcal"
+      ],
+      "notes": "3 eggs ~210 kcal, 2 small buns ~260 kcal, toppings ~70 kcal = ~540 kcal",
+      "protein_g": 24,
+      "carbs_g": 25,
+      "fat_g": 24
+    },
+    {
+      "date": "2026-05-27",
+      "time": "14:00",
+      "foods": "200g boiled macaroni pasta + 120g homecooked chicken kheema",
+      "calories": 500,
+      "breakdown": [
+        "200g boiled macaroni pasta: ~260 kcal",
+        "120g chicken kheema: ~240 kcal"
+      ],
+      "notes": "Pasta ~260 kcal, chicken kheema ~240 kcal = ~500 kcal",
+      "protein_g": 47,
+      "carbs_g": 50,
+      "fat_g": 6
+    },
+    {
+      "date": "2026-05-27",
+      "time": "11:15 PM",
+      "foods": "20g Afghani boneless chicken (light oil/gravy) + 250ml lassi + 5g Rasna mango",
+      "calories": 125,
+      "protein_g": 9,
+      "carbs_g": 10,
+      "fat_g": 5,
+      "breakdown": "20g chicken ~46kcal (6g P, 1g C, 2g F) | 250ml lassi ~60kcal (3g P, 4g C, 3g F) | 5g Rasna ~19kcal (5g C)",
+      "notes": "Homecooked - less oil"
+    }
+  ],
+  "created": "2026-05-27",
+  "last_updated": "2026-05-27"
+}
