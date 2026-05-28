@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kanban · Scalesystems</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: #0a0a0f;
+      color: #e2e2e8;
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    /* Header */
+    .header {
+      max-width: 1400px;
+      margin: 0 auto 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .header h1 {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #fff;
+    }
+    .header h1 span {
+      font-weight: 400;
+      color: #666;
+      font-size: 16px;
+      letter-spacing: 0;
+    }
+    .header .meta {
+      font-size: 13px;
+      color: #888;
+    }
+    .header .meta span {
+      color: #555;
+    }
+
+    /* Stats row */
+    .stats {
+      max-width: 1400px;
+      margin: 0 auto 28px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .stat-card {
+      background: #12121a;
+      border: 1px solid #1e1e2a;
+      border-radius: 12px;
+      padding: 14px 22px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .stat-card .num {
+      font-size: 22px;
+      font-weight: 800;
+    }
+    .stat-card .label {
+      font-size: 13px;
+      color: #888;
+    }
+    .stat-card.done .num { color: #34d399; }
+    .stat-card.ready .num { color: #60a5fa; }
+    .stat-card.blocked .num { color: #f87171; }
+    .stat-card.total .num { color: #c084fc; }
+
+    /* Board */
+    .board {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 960px) {
+      .board { grid-template-columns: 1fr; }
+    }
+
+    .column {
+      background: #0d0d16;
+      border: 1px solid #1a1a26;
+      border-radius: 14px;
+      padding: 16px;
+      min-height: 300px;
+    }
+    .column-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #1a1a26;
+    }
+    .column-header h2 {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .column-header .count {
+      font-size: 13px;
+      font-weight: 600;
+      background: #1a1a26;
+      padding: 2px 10px;
+      border-radius: 20px;
+      color: #999;
+    }
+    .column.blocked .column-header h2 { color: #f87171; }
+    .column.ready .column-header h2 { color: #60a5fa; }
+    .column.done .column-header h2 { color: #34d399; }
+
+    /* Cards */
+    .card {
+      background: #13131e;
+      border: 1px solid #1e1e2a;
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 10px;
+      cursor: default;
+      transition: border-color .2s, background .2s;
+    }
+    .card:hover {
+      border-color: #2e2e42;
+      background: #181825;
+    }
+    .card-title {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.4;
+      margin-bottom: 6px;
+      color: #eee;
+    }
+    .card-body {
+      font-size: 12.5px;
+      line-height: 1.5;
+      color: #999;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .card-meta {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+      font-size: 11px;
+      color: #555;
+      flex-wrap: wrap;
+    }
+    .card-meta .tag {
+      background: #1a1a26;
+      padding: 2px 8px;
+      border-radius: 4px;
+      color: #777;
+    }
+    .card-meta .tenant {
+      background: #15152a;
+      color: #7c7cd4;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .card.empty {
+      text-align: center;
+      color: #444;
+      font-size: 13px;
+      padding: 32px 16px;
+      border-style: dashed;
+      border-color: #1e1e2a;
+      background: transparent;
+    }
+    .card.empty:hover {
+      border-color: #1e1e2a;
+      background: transparent;
+    }
+
+    /* Footer */
+    .footer {
+      max-width: 1400px;
+      margin: 40px auto 0;
+      text-align: center;
+      font-size: 12px;
+      color: #444;
+      border-top: 1px solid #14141e;
+      padding-top: 20px;
+    }
+    .footer a { color: #666; text-decoration: none; }
+    .footer a:hover { color: #999; }
+
+    /* Separator for "ready" column — non-blocked, non-done */
+    .card.priority-high { border-left: 3px solid #f87171; }
+    .card.priority-mid { border-left: 3px solid #fbbf24; }
+    .card.priority-low { border-left: 3px solid #555; }
+  </style>
+</head>
+<body>
+  <script>
+    const TASKS = [
+      { id: "t_a9bf488e", title: "📚 YouTube books → Kindle send", body: "Auto-email EPUBs to Kindle via himalaya CLI + sendmail. Needs Kindle email address and sendmail setup.", status: "blocked", priority: 2, tenant: "scalesystems" },
+      { id: "t_1d7a2028", title: "🔐 Todoist API integration", body: "Sync kanban to Todoist. Needs user's Todoist API token (previous one was redacted by security).", status: "blocked", priority: 1, tenant: "scalesystems" },
+      { id: "t_049878ad", title: "🌐 Deploy Aprilia RS457 page", body: "Deploy Apple-style Aprilia RS457 parts page to Vercel. Waiting on user's Vercel token or login.", status: "blocked", priority: 1, tenant: "scalesystems" },
+      { id: "t_17f0d985", title: "🎙️ Podcast Clipping Pipeline", body: "Extract highlights from raw recordings — auto-clip, cleanup, brand.", status: "blocked", priority: 0, tenant: "scalesystems" },
+      { id: "t_2c7916b0", title: "🤖 Content Automation Pipeline", body: "Auto-clip, schedule, cross-post pipeline for content distribution.", status: "blocked", priority: 0, tenant: "scalesystems" },
+      { id: "t_e6884b48", title: "📱 Anna's Archive download workflow", body: "Book links from YouTube recs → Anna's Archive slow download links. Blocked by DDoS-Guard/hCaptcha.", status: "done", priority: 2, tenant: "scalesystems" },
+      { id: "t_f0cd819a", title: "🎬 AIMN logo transition pipeline", body: "Hyperframes + GSAP + gofile.io: HTML → 1080p render → upload → link. Skill saved.", status: "done", priority: 2, tenant: "scalesystems" },
+      { id: "t_1bde09a9", title: "🔄 Cron job — Scalesystems status check-in", body: "Periodic status check of board for blocked tasks, pipeline status.", status: "done", priority: 1, tenant: "scalesystems" },
+      { id: "t_83c668d1", title: "📈 Viral Content Strategy", body: "Hooks, pacing, captions, platform optimization strategy.", status: "done", priority: 0, tenant: "scalesystems" },
+      { id: "t_d84ed914", title: "🎬 Video Production & Lighting", body: "Framing, lighting setup, audio quality standards.", status: "done", priority: 0, tenant: "scalesystems" },
+      { id: "t_c691dcd4", title: "💬 Decide: Recording pipeline method", body: "Syncthing/rsync/local — decided approach.", status: "done", priority: 0, tenant: "scalesystems" },
+      { id: "t_39f55a4b", title: "💬 Discussion: Remotion vs Hyperframes", body: "Evaluated both for clip pipeline. Hyperframes chosen.", status: "done", priority: 0, tenant: "scalesystems" },
+      { id: "t_89540585", title: "🎬 News channel YouTube Shorts template", body: "Animate logo + timestamp template — complete.", status: "done", priority: 0, tenant: "scalesystems" }
+    ];
+
+    const statusOrder = { "blocked": 0, "ready": 1, "done": 2 };
+    const priorityLabel = ["low", "mid", "high"];
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const columns = {
+        blocked: document.getElementById("col-blocked"),
+        ready: document.getElementById("col-ready"),
+        done: document.getElementById("col-done")
+      };
+      const counters = {
+        blocked: document.getElementById("cnt-blocked"),
+        ready: document.getElementById("cnt-ready"),
+        done: document.getElementById("cnt-done")
+      };
+
+      const now = new Date();
+      const fmtDate = now.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
+      const fmtTime = now.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
+      document.getElementById("live-date").textContent = `${fmtDate} · ${fmtTime}`;
+
+      // Sort: priority desc, then title
+      const sorted = [...TASKS].sort((a, b) => {
+        if (b.priority !== a.priority) return b.priority - a.priority;
+        return a.title.localeCompare(b.title);
+      });
+
+      const counts = { blocked: 0, ready: 0, done: 0 };
+
+      sorted.forEach(t => {
+        const card = document.createElement("div");
+        card.className = "card priority-" + priorityLabel[t.priority] || "priority-low";
+        if (t.status === "done") card.className = "card";
+
+        const body = t.body ? `<div class="card-body">${t.body}</div>` : "";
+        card.innerHTML = `
+          <div class="card-title">${t.title}</div>
+          ${body}
+          <div class="card-meta">
+            <span class="tenant">${t.tenant}</span>
+            <span class="tag">P${t.priority}</span>
+          </div>
+        `;
+        columns[t.status].appendChild(card);
+        counts[t.status]++;
+      });
+
+      // Fill empty columns
+      Object.entries(columns).forEach(([status, col]) => {
+        counters[status].textContent = counts[status];
+        if (counts[status] === 0) {
+          const empty = document.createElement("div");
+          empty.className = "card empty";
+          empty.textContent = "No tasks";
+          col.appendChild(empty);
+        }
+      });
+
+      // Stats
+      document.getElementById("stat-done").textContent = counts.done;
+      document.getElementById("stat-ready").textContent = counts.ready;
+      document.getElementById("stat-blocked").textContent = counts.blocked;
+      document.getElementById("stat-total").textContent = TASKS.length;
+    });
+  </script>
+
+  <div class="header">
+    <div>
+      <h1>Kanban <span>· Scalesystems</span></h1>
+      <div class="meta">Last updated <span id="live-date"></span></div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat-card total">
+      <span class="num" id="stat-total"></span>
+      <span class="label">Total tasks</span>
+    </div>
+    <div class="stat-card blocked">
+      <span class="num" id="stat-blocked"></span>
+      <span class="label">Blocked</span>
+    </div>
+    <div class="stat-card ready">
+      <span class="num" id="stat-ready"></span>
+      <span class="label">Ready</span>
+    </div>
+    <div class="stat-card done">
+      <span class="num" id="stat-done"></span>
+      <span class="label">Done</span>
+    </div>
+  </div>
+
+  <div class="board">
+    <div class="column blocked">
+      <div class="column-header">
+        <h2>⛔ Blocked</h2>
+        <span class="count" id="cnt-blocked">0</span>
+      </div>
+      <div id="col-blocked"></div>
+    </div>
+    <div class="column ready">
+      <div class="column-header">
+        <h2>▶ Ready</h2>
+        <span class="count" id="cnt-ready">0</span>
+      </div>
+      <div id="col-ready"></div>
+    </div>
+    <div class="column done">
+      <div class="column-header">
+        <h2>✅ Done</h2>
+        <span class="count" id="cnt-done">0</span>
+      </div>
+      <div id="col-done"></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="https://bhayanakmaauut92.github.io/meals-dashboard/">Meals Dashboard</a> · <a href="https://github.com/bhayanakmaauut92/meals-dashboard">Source</a>
+  </div>
+</body>
+</html>
