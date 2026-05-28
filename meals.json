@@ -64,6 +64,17 @@
       "fat_g": 5,
       "breakdown": "30g potato ~46kcal (0.6g P, 6g C, 2.5g F) | 25g kheema ~50kcal (5g P, 0g C, 3g F)",
       "notes": "Dinner"
+    },
+    {
+      "date": "2026-05-28",
+      "time": "15:00",
+      "foods": "120g lightly fried potato (yesterday's) + 120g chicken kheema (yesterday's) + 2 burger buns",
+      "calories": 684,
+      "protein_g": 37,
+      "carbs_g": 70,
+      "fat_g": 29,
+      "breakdown": "120g lightly fried potato ~184kcal (2g P, 24g C, 10g F) | 120g chicken kheema ~240kcal (26g P, 2g C, 14g F) | 2 burger buns ~260kcal (8g P, 44g C, 5g F)",
+      "notes": "Leftover potato + chicken kheema from yesterday"
     }
   ],
   "created": "2026-05-27",
