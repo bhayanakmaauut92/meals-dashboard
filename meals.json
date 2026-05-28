@@ -86,6 +86,20 @@
       "fat_g": 22,
       "breakdown": "297g bone-in chicken curry. Est. bones + lemon ~130g, edible meat+gravy ~167g. ~355kcal (32g P, 5g C, 22g F)",
       "notes": "Homecooked curry, ate chicken pieces only - no rice/roti. Bones + 2 lemon pieces deducted from total weight."
+    },
+    {
+      "date": "2026-05-28",
+      "time": "23:00",
+      "foods": "212g boiled pasta topped with 120g homecooked chicken keema",
+      "calories": 473,
+      "protein_g": 47,
+      "carbs_g": 53,
+      "fat_g": 6,
+      "breakdown": [
+        "212g boiled pasta topped: ~275 kcal",
+        "120g homecooked chicken keema: ~198 kcal"
+      ],
+      "notes": ""
     }
   ],
   "created": "2026-05-27",
