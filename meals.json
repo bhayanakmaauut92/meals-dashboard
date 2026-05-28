@@ -53,8 +53,19 @@
       "fat_g": 5,
       "breakdown": "20g chicken ~46kcal (6g P, 1g C, 2g F) | 250ml lassi ~60kcal (3g P, 4g C, 3g F) | 5g Rasna ~19kcal (5g C)",
       "notes": "Homecooked - less oil"
+    },
+    {
+      "date": "2026-05-28",
+      "time": "02:37 AM",
+      "foods": "30g lightly fried boiled potato + 25g chicken kheema",
+      "calories": 95,
+      "protein_g": 6,
+      "carbs_g": 6,
+      "fat_g": 5,
+      "breakdown": "30g potato ~46kcal (0.6g P, 6g C, 2.5g F) | 25g kheema ~50kcal (5g P, 0g C, 3g F)",
+      "notes": "Dinner"
     }
   ],
   "created": "2026-05-27",
-  "last_updated": "2026-05-27"
+  "last_updated": "2026-05-28"
 }
