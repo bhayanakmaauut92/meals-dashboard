@@ -510,6 +510,8 @@ body {
   <button onclick="showView('planned-meals')">📋 Planned Meals</button>
   <button onclick="showView('workout-planner')">🏋️ Workout Planner</button>
   <button onclick="showView('workout-tracker')">📊 Workout Tracker</button>
+  <button onclick="showView('recipes')">📖 Recipes</button>
+  <button onclick="showView('expenses')">💰 Expenses</button>
 </div>
 
 <!-- ── Header ── -->
@@ -798,19 +800,19 @@ body {
     <div class="planned-card">
       <div class="p-header">
         <span class="p-day">🛍️ Shop Day - Wednesday</span>
-        <span class="p-cals" style="font-size:13px;color:#636366;">2026-05-27</span>
+        <span class="p-cals" style="font-size:13px;color:#636366;"></span>
       </div>
       <div style="padding:8px 24px 16px;">
-        <span class="grocery-chip">🛒 Chicken breast (1kg)</span><span class="grocery-chip">🛒 Boneless chicken (1kg)</span><span class="grocery-chip">🛒 Chicken kheema / mince (500g)</span><span class="grocery-chip">🛒 Pasta (500g)</span><span class="grocery-chip">🛒 White rice (2kg)</span><span class="grocery-chip">🛒 Potatoes (1kg)</span><span class="grocery-chip">🛒 Onions (500g)</span><span class="grocery-chip">🛒 Garlic + Ginger</span><span class="grocery-chip">🛒 Dahi / Greek yogurt (500g)</span><span class="grocery-chip">🛒 Bananas (6)</span><span class="grocery-chip">🛒 Apples (4)</span><span class="grocery-chip">🛒 Whey protein (1 tub)</span><span class="grocery-chip">🛒 Protein bars (box)</span><span class="grocery-chip">🛒 Mixed nuts (200g)</span>
+        <span class="grocery-chip">🛒 Boneless chicken (1kg)</span><span class="grocery-chip">🛒 Chicken kheema (500g-1kg)</span><span class="grocery-chip">🛒 Kaddu / pumpkin (1 medium)</span><span class="grocery-chip">🛒 Nimkish seasoning (2 packs)</span><span class="grocery-chip">🛒 Organic eggs (12)</span><span class="grocery-chip">🛒 Cucumber (500g-1kg)</span><span class="grocery-chip">🛒 Carrots (500g-1kg)</span><span class="grocery-chip">🛒 Cabbage (1 head)</span><span class="grocery-chip">🛒 Gobhi / Indian broccoli (1 head)</span><span class="grocery-chip">🛒 Potatoes (1kg)</span><span class="grocery-chip">🛒 Tomatoes (500g)</span><span class="grocery-chip">🛒 Tomato puree paste (1kg)</span><span class="grocery-chip">🛒 Milk (500ml × 2)</span><span class="grocery-chip">🛒 Dahi (500ml × 2)</span><span class="grocery-chip">🛒 Lassi (1L × 2)</span><span class="grocery-chip">🛒 Amul paneer (200g × 1-2)</span><span class="grocery-chip">🛒 Bread (1 loaf)</span>
       </div>
     </div>
     <div class="planned-card">
       <div class="p-header">
         <span class="p-day">🛍️ Shop Day - Saturday</span>
-        <span class="p-cals" style="font-size:13px;color:#636366;">2026-05-30</span>
+        <span class="p-cals" style="font-size:13px;color:#636366;"></span>
       </div>
       <div style="padding:8px 24px 16px;">
-        <span class="grocery-chip">🛒 Fish fillets (500g)</span><span class="grocery-chip">🛒 Eggs (2 dozen)</span><span class="grocery-chip">🛒 Burger buns (1 pack)</span><span class="grocery-chip">🛒 Bread loaf</span><span class="grocery-chip">🛒 Avocados (2)</span><span class="grocery-chip">🛒 Lettuce + Cucumber + Tomatoes</span><span class="grocery-chip">🛒 Lassi (1L)</span><span class="grocery-chip">🛒 Paneer (250g)</span><span class="grocery-chip">🛒 Mixed vegetables (1kg) - for sabzi</span><span class="grocery-chip">🛒 Monster Energy (4 cans)</span><span class="grocery-chip">🛒 Rasna mix</span><span class="grocery-chip">🛒 Afghani chicken masala / spices</span><span class="grocery-chip">🛒 Cooking oil (refill)</span>
+        <span class="grocery-chip">🛒 Boneless chicken (1kg) - top up</span><span class="grocery-chip">🛒 Chicken kheema (500g) - top up</span><span class="grocery-chip">🛒 Fresh veggies top up</span><span class="grocery-chip">🛒 Eggs (12) - if running low</span><span class="grocery-chip">🛒 Dahi (500ml × 2)</span><span class="grocery-chip">🛒 Lassi (1L × 2)</span><span class="grocery-chip">🛒 Paneer (200g × 1)</span><span class="grocery-chip">🛒 Bread (1 loaf)</span>
       </div>
     </div>
     <div class="day-card" style="background:#fafafc;">
@@ -818,7 +820,7 @@ body {
         <div class="day-name" style="font-size:15px;">💡 Common Staples</div>
       </div>
       <div style="padding:4px 24px 16px;">
-        <span class="grocery-chip">💡 Chicken breast</span><span class="grocery-chip">💡 Boneless chicken / chicken kheema</span><span class="grocery-chip">💡 Fish fillets</span><span class="grocery-chip">💡 Eggs</span><span class="grocery-chip">💡 Greek yogurt / dahi</span><span class="grocery-chip">💡 Cottage cheese / paneer</span><span class="grocery-chip">💡 Lassi</span><span class="grocery-chip">💡 Pasta</span><span class="grocery-chip">💡 Rice</span><span class="grocery-chip">💡 Potatoes</span><span class="grocery-chip">💡 Burger buns / bread</span><span class="grocery-chip">💡 Mixed vegetables</span><span class="grocery-chip">💡 Bananas</span><span class="grocery-chip">💡 Apples</span><span class="grocery-chip">💡 Avocados</span><span class="grocery-chip">💡 Lettuce / salad greens</span><span class="grocery-chip">💡 Whey protein</span><span class="grocery-chip">💡 Protein bars</span><span class="grocery-chip">💡 Mixed nuts</span><span class="grocery-chip">💡 Monster Energy</span><span class="grocery-chip">💡 Garlic + Ginger</span><span class="grocery-chip">💡 Spices / masala</span>
+        <span class="grocery-chip">💡 Boneless chicken (1kg)</span><span class="grocery-chip">💡 Chicken kheema (500g-1kg)</span><span class="grocery-chip">💡 Kaddu / pumpkin</span><span class="grocery-chip">💡 Nimkish seasoning (2 packs/week)</span><span class="grocery-chip">💡 Organic eggs (12)</span><span class="grocery-chip">💡 Cucumber</span><span class="grocery-chip">💡 Carrots</span><span class="grocery-chip">💡 Cabbage</span><span class="grocery-chip">💡 Gobhi / Indian broccoli</span><span class="grocery-chip">💡 Potatoes (1kg)</span><span class="grocery-chip">💡 Tomatoes (500g)</span><span class="grocery-chip">💡 Tomato puree paste (1kg)</span><span class="grocery-chip">💡 Milk (500ml × 2)</span><span class="grocery-chip">💡 Dahi (500ml × 2)</span><span class="grocery-chip">💡 Lassi (1L × 2)</span><span class="grocery-chip">💡 Amul paneer (200g × 1-2)</span><span class="grocery-chip">💡 Bread (1 loaf)</span><span class="grocery-chip">💡 Pasta (raw)</span><span class="grocery-chip">💡 White rice</span><span class="grocery-chip">💡 Masoor dal</span><span class="grocery-chip">💡 Arhar dal / toor dal</span><span class="grocery-chip">💡 Chana / kabuli chana</span><span class="grocery-chip">💡 Cooking oil</span>
       </div>
     </div>
     <div class="planned-card">
@@ -1506,6 +1508,189 @@ body {
             </div>
         <div style="font-size:13px;color:#86868b;margin-top:8px;">📝 Good session, chest pump was solid</div>
         
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════
+       VIEW 5: RECIPES
+       ════════════════════════════════════════════════ -->
+  <div id="view-recipes" class="view">
+    
+    <div class="planned-card">
+      <div class="p-header">
+        <span class="p-day">🥗 Oven Baked Kaddu (Pumpkin)</span>
+        <span style="font-size:12px;color:#86868b;">🕐 5 min prep · 25 min cook</span>
+      </div>
+      <div style="padding:4px 24px 8px;">
+        <span class="grocery-chip">📝 Kaddu / pumpkin - sliced</span><span class="grocery-chip">📝 Spices (turmeric, cumin, chili powder, salt)</span><span class="grocery-chip">📝 Oil spray</span>
+      </div>
+      <div style="padding:0 24px 12px;font-size:14px;color:#1d1d1f;line-height:1.6;">
+        Slice kaddu into wedges. Toss with spices and a light spray of oil. Bake at 200C for 20-25 min until edges are golden. Simple carb side.
+      </div>
+      <div style="font-size:13px;color:#86868b;margin-top:8px;">💡 Babio's go-to carb. Replaces rice/pasta for variety.</div>
+    </div>
+    <div class="planned-card">
+      <div class="p-header">
+        <span class="p-day">🍗 Nimkish Spiced Chicken Kheema</span>
+        <span style="font-size:12px;color:#86868b;">🕐 5 min prep · 20 min cook</span>
+      </div>
+      <div style="padding:4px 24px 8px;">
+        <span class="grocery-chip">📝 Chicken kheema (500g)</span><span class="grocery-chip">📝 Nimkish seasoning (1 pack)</span><span class="grocery-chip">📝 Onions (1 medium, diced)</span><span class="grocery-chip">📝 Tomato puree (2 tbsp)</span><span class="grocery-chip">📝 Oil</span>
+      </div>
+      <div style="padding:0 24px 12px;font-size:14px;color:#1d1d1f;line-height:1.6;">
+        Heat oil, saute onions golden. Add kheema, cook till brown. Add nimkish seasoning and tomato puree. Simmer 10 min. Done.
+      </div>
+      <div style="font-size:13px;color:#86868b;margin-top:8px;">💡 Quick homecooked meal. Goes with bread, pasta, or kaddu.</div>
+    </div>
+    <div class="planned-card">
+      <div class="p-header">
+        <span class="p-day">🍗 Nimkish Boneless Chicken (Oven)</span>
+        <span style="font-size:12px;color:#86868b;">🕐 10 min + marination prep · 25 min cook</span>
+      </div>
+      <div style="padding:4px 24px 8px;">
+        <span class="grocery-chip">📝 Boneless chicken (500g)</span><span class="grocery-chip">📝 Nimkish seasoning (1 pack)</span><span class="grocery-chip">📝 Oil spray</span><span class="grocery-chip">📝 Dahi (2 tbsp) - optional</span>
+      </div>
+      <div style="padding:0 24px 12px;font-size:14px;color:#1d1d1f;line-height:1.6;">
+        Marinate chicken with nimkish seasoning and dahi. Oven bake at 200C for 20-25 min or air fry. Flip halfway.
+      </div>
+      <div style="font-size:13px;color:#86868b;margin-top:8px;">💡 Can also pan fry. The nimkish + dahi combo keeps chicken soft.</div>
+    </div>
+    <div class="planned-card">
+      <div class="p-header">
+        <span class="p-day">🍗 Chicken & Kaddu Bowl</span>
+        <span style="font-size:12px;color:#86868b;">🕐 5 min prep · 25 min (kaddu + chicken together) cook</span>
+      </div>
+      <div style="padding:4px 24px 8px;">
+        <span class="grocery-chip">📝 Oven baked kaddu</span><span class="grocery-chip">📝 Nimkish chicken (kheema or boneless)</span><span class="grocery-chip">📝 Salad (cucumber, carrot, cabbage)</span><span class="grocery-chip">📝 Dahi on side</span>
+      </div>
+      <div style="padding:0 24px 12px;font-size:14px;color:#1d1d1f;line-height:1.6;">
+        Plate kaddu slices, top with chicken, add fresh salad on the side. Dahi on the side. No rice/pasta needed.
+      </div>
+      <div style="font-size:13px;color:#86868b;margin-top:8px;">💡 Babio's standard meal template: protein + kaddu carb + fresh veg + dahi</div>
+    </div>
+    <div class="planned-card">
+      <div class="p-header">
+        <span class="p-day">🥗 Gobhi Sabzi</span>
+        <span style="font-size:12px;color:#86868b;">🕐 5 min prep · 15 min cook</span>
+      </div>
+      <div style="padding:4px 24px 8px;">
+        <span class="grocery-chip">📝 Gobhi (1 head, florets)</span><span class="grocery-chip">📝 Oil</span><span class="grocery-chip">📝 Jeera (cumin seeds)</span><span class="grocery-chip">📝 Haldi, mirch, dhaniya powder, salt</span>
+      </div>
+      <div style="padding:0 24px 12px;font-size:14px;color:#1d1d1f;line-height:1.6;">
+        Heat oil, add jeera. Add gobhi florets, spices, stir. Cover and cook on low 12-15 min. Stir occasionally.
+      </div>
+      <div style="font-size:13px;color:#86868b;margin-top:8px;">💡 Simple Indian style. Great side with chicken.</div>
+    </div>
+    <div class="planned-card">
+      <div class="p-header">
+        <span class="p-day">🥣 Masoor Dal</span>
+        <span style="font-size:12px;color:#86868b;">🕐 5 min prep · 20 min cook</span>
+      </div>
+      <div style="padding:4px 24px 8px;">
+        <span class="grocery-chip">📝 Masoor dal (1 cup)</span><span class="grocery-chip">📝 Tomato (1, diced)</span><span class="grocery-chip">📝 Onion (1, diced)</span><span class="grocery-chip">📝 Garlic + ginger</span><span class="grocery-chip">📝 Haldi, mirch, salt</span><span class="grocery-chip">📝 Ghee for tadka</span>
+      </div>
+      <div style="padding:0 24px 12px;font-size:14px;color:#1d1d1f;line-height:1.6;">
+        Pressure cook dal with haldi. Tadka: ghee, jeera, garlic, onion, tomato. Pour over dal. Simmer 5 min.
+      </div>
+      <div style="font-size:13px;color:#86868b;margin-top:8px;">💡 Comfort food. Pair with kaddu or have on its own.</div>
+    </div>
+    <div class="planned-card">
+      <div class="p-header">
+        <span class="p-day">🥣 Arhar Dal (Toor Dal)</span>
+        <span style="font-size:12px;color:#86868b;">🕐 5 min prep · 20 min cook</span>
+      </div>
+      <div style="padding:4px 24px 8px;">
+        <span class="grocery-chip">📝 Arhar dal (1 cup)</span><span class="grocery-chip">📝 Tomato (1)</span><span class="grocery-chip">📝 Green chili (1)</span><span class="grocery-chip">📝 Garlic</span><span class="grocery-chip">📝 Haldi, salt</span><span class="grocery-chip">📝 Ghee for tadka</span>
+      </div>
+      <div style="padding:0 24px 12px;font-size:14px;color:#1d1d1f;line-height:1.6;">
+        Cook dal with haldi, tomato, garlic in pressure cooker. Tadka with ghee, jeera, red chili, garlic. Mix and serve.
+      </div>
+      <div style="font-size:13px;color:#86868b;margin-top:8px;">💡 Classic. Babio's rotation dal.</div>
+    </div>
+    <div class="planned-card">
+      <div class="p-header">
+        <span class="p-day">🍛 Chana / Kabuli Chana</span>
+        <span style="font-size:12px;color:#86868b;">🕐 10 min + overnight soak prep · 30 min cook</span>
+      </div>
+      <div style="padding:4px 24px 8px;">
+        <span class="grocery-chip">📝 Kabuli chana (1 cup, soaked overnight)</span><span class="grocery-chip">📝 Onion (1)</span><span class="grocery-chip">📝 Tomato puree (3 tbsp)</span><span class="grocery-chip">📝 Garlic + ginger</span><span class="grocery-chip">📝 Chana masala, haldi, mirch, salt</span><span class="grocery-chip">📝 Oil</span>
+      </div>
+      <div style="padding:0 24px 12px;font-size:14px;color:#1d1d1f;line-height:1.6;">
+        Pressure cook soaked chana. Saute onions, add ginger-garlic, tomato puree, spices. Add chana, simmer 10 min.
+      </div>
+      <div style="font-size:13px;color:#86868b;margin-top:8px;">💡 Hearty meal. Good for lunch.</div>
+    </div>
+    <div class="planned-card">
+      <div class="p-header">
+        <span class="p-day">🍳 Egg Bhurji (Indian Scrambled Eggs)</span>
+        <span style="font-size:12px;color:#86868b;">🕐 2 min prep · 8 min cook</span>
+      </div>
+      <div style="padding:4px 24px 8px;">
+        <span class="grocery-chip">📝 Eggs (3)</span><span class="grocery-chip">📝 Onion (1 small, diced)</span><span class="grocery-chip">📝 Tomato (1 small, diced)</span><span class="grocery-chip">📝 Green chili (1)</span><span class="grocery-chip">📝 Haldi, mirch, salt</span><span class="grocery-chip">📝 Oil</span>
+      </div>
+      <div style="padding:0 24px 12px;font-size:14px;color:#1d1d1f;line-height:1.6;">
+        Saute onions + green chili. Add tomatoes. Beat eggs with spices, pour in. Scramble on low heat. Serve with bread.
+      </div>
+      <div style="font-size:13px;color:#86868b;margin-top:8px;">💡 Quick breakfast or lunch.</div>
+    </div>
+    <div class="planned-card">
+      <div class="p-header">
+        <span class="p-day">🍗 Simple Chicken Salad (Keto style)</span>
+        <span style="font-size:12px;color:#86868b;">🕐 10 min prep · 0 min (uses pre-cooked chicken) cook</span>
+      </div>
+      <div style="padding:4px 24px 8px;">
+        <span class="grocery-chip">📝 Boneless chicken (200g, cooked)</span><span class="grocery-chip">📝 Cucumber (diced)</span><span class="grocery-chip">📝 Carrot (grated)</span><span class="grocery-chip">📝 Cabbage (shredded)</span><span class="grocery-chip">📝 Dahi dressing or lemon</span>
+      </div>
+      <div style="padding:0 24px 12px;font-size:14px;color:#1d1d1f;line-height:1.6;">
+        Shred cooked chicken. Mix with diced cucumber, grated carrot, shredded cabbage. Dress with dahi or lemon + salt.
+      </div>
+      <div style="font-size:13px;color:#86868b;margin-top:8px;">💡 Great for when you have leftover chicken.</div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════
+       VIEW 6: EXPENSES
+       ════════════════════════════════════════════════ -->
+  <div id="view-expenses" class="view">
+    
+    <div class="macro-card">
+      <div class="macro-card-title">💰 This Week's Food Spend</div>
+      <div class="macro-card-sub">Weekly eating-out budget: ₹500</div>
+      <div class="macro-row">
+        <div class="m-icon">🛒</div>
+        <div class="m-label" style="width:90px;">Groceries</div>
+        <div class="m-bar-bg"><div class="m-bar-fill cal" style="width:100%;"></div></div>
+        <div class="m-values"><strong>₹0</strong></div>
+      </div>
+      <div class="macro-row">
+        <div class="m-icon">🍽️</div>
+        <div class="m-label" style="width:90px;">Eating Out</div>
+        <div class="m-bar-bg"><div class="m-bar-fill cal" style="width:0%;"></div></div>
+        <div class="m-values"><strong>₹0</strong> / <span class="m-target">₹500</span></div>
+      </div>
+      <div class="macro-row" style="border:none;">
+        <div class="m-icon">💵</div>
+        <div class="m-label" style="width:90px;">Total</div>
+        <div class="m-bar-bg" style="flex:1;"></div>
+        <div class="m-values"><strong>₹0</strong></div>
+      </div>
+    </div>
+    <div class="trends-card">
+      <div class="trends-title">🛒 Grocery Shopping History</div>
+      <div class="trend-item">
+        <div class="trend-header">
+          <span class="trend-label">Saturday <span style="font-weight:400;color:#86868b;font-size:13px;">2026-05-30</span></span>
+          <span class="trend-cal" style="font-size:16px;">₹0</span>
+        </div>
+        <div class="trend-meta">Groceries - Top Up</div>
+      </div>
+      <div class="trend-item">
+        <div class="trend-header">
+          <span class="trend-label">Wednesday <span style="font-weight:400;color:#86868b;font-size:13px;">2026-05-27</span></span>
+          <span class="trend-cal" style="font-size:16px;">₹0</span>
+        </div>
+        <div class="trend-meta">Groceries - Weekly Shop</div>
       </div>
     </div>
   </div>
