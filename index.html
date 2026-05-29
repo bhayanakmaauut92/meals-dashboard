@@ -66,6 +66,59 @@ body {
     color: #1d1d1f;
   }
 
+  /* ── PE / Looksmaxxing ── */
+  .pe-card {
+    background: #fff;
+    border-radius: 18px;
+    margin: 16px auto;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    border: 1px solid #e8e8ed;
+  }
+  .pe-card .pe-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .pe-card .pe-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1d1d1f;
+  }
+  .pe-card .pe-value {
+    font-size: 22px;
+    font-weight: 800;
+    color: #d4a040;
+  }
+  .pe-card .pe-sub {
+    font-size: 12px;
+    color: #86868b;
+  }
+  .pe-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 24px;
+    border-bottom: 1px solid #f5f5f7;
+    align-items: center;
+  }
+  .pe-row:last-child { border-bottom: none; }
+  .pe-label { font-size: 14px; color: #636366; }
+  .pe-stat { font-size: 16px; font-weight: 700; color: #1d1d1f; }
+  .pe-ok { color: #4cd964; }
+  .pe-miss { color: #e34040; }
+  .pe-dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin: 0 2px;
+  }
+  .pe-dot.done { background: #4cd964; }
+  .pe-dot.miss { background: #e8e8ed; }
+  .pe-dot.today { background: #d4a040; box-shadow: 0 0 0 2px #fff, 0 0 0 3px #d4a040; }
+
   /* ── Header macro ring ── */
   .header .macro-ring {
     display: flex;
@@ -512,6 +565,7 @@ body {
   <button onclick="showView('workout-tracker')">📊 Workout Tracker</button>
   <button onclick="showView('recipes')">📖 Recipes</button>
   <button onclick="showView('expenses')">💰 Expenses</button>
+  <button onclick="showView('looksmaxxing')">✨ Looksmaxxing</button>
 </div>
 
 <!-- ── Header ── -->
@@ -1693,6 +1747,52 @@ body {
         <div class="trend-meta">Groceries - Weekly Shop</div>
       </div>
     </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════
+       VIEW 7: LOOKSMAXXING
+       ════════════════════════════════════════════════ -->
+  <div id="view-looksmaxxing" class="view">
+    
+    <div class="pe-card">
+      <div class="pe-header">
+        <span class="pe-title">🔱 PE Progress</span>
+        <span class="pe-value">0d</span>
+      </div>
+      <div class="pe-row">
+        <span class="pe-label">🔥 Current Streak</span>
+        <span class="pe-stat">0 days</span>
+      </div>
+      <div class="pe-row">
+        <span class="pe-label">🏆 Best Streak</span>
+        <span class="pe-stat">0 days</span>
+      </div>
+      <div class="pe-row">
+        <span class="pe-label">📆 Total Sessions</span>
+        <span class="pe-stat">0</span>
+      </div>
+      <div class="pe-row">
+        <span class="pe-label">⏱️ Total Minutes</span>
+        <span class="pe-stat">0</span>
+      </div>
+      <div class="pe-row">
+        <span class="pe-label">🎯 Daily Goal</span>
+        <span class="pe-stat"><span class="pe-miss">❌ Not yet</span></span>
+      </div>
+    </div>
+    <div class="pe-card">
+      <div class="pe-header">
+        <span class="pe-title">📅 Last 30 Days</span>
+      </div>
+      <div style="padding:16px 24px 20px;line-height:2;">
+        <span class="pe-dot miss" title="❌ 2026-04-30"></span><span class="pe-dot miss" title="❌ 2026-05-01"></span><br style="margin-bottom:4px;"><span class="pe-dot miss" title="❌ 2026-05-02"></span><span class="pe-dot miss" title="❌ 2026-05-03"></span><span class="pe-dot miss" title="❌ 2026-05-04"></span><span class="pe-dot miss" title="❌ 2026-05-05"></span><span class="pe-dot miss" title="❌ 2026-05-06"></span><span class="pe-dot miss" title="❌ 2026-05-07"></span><span class="pe-dot miss" title="❌ 2026-05-08"></span><br style="margin-bottom:4px;"><span class="pe-dot miss" title="❌ 2026-05-09"></span><span class="pe-dot miss" title="❌ 2026-05-10"></span><span class="pe-dot miss" title="❌ 2026-05-11"></span><span class="pe-dot miss" title="❌ 2026-05-12"></span><span class="pe-dot miss" title="❌ 2026-05-13"></span><span class="pe-dot miss" title="❌ 2026-05-14"></span><span class="pe-dot miss" title="❌ 2026-05-15"></span><br style="margin-bottom:4px;"><span class="pe-dot miss" title="❌ 2026-05-16"></span><span class="pe-dot miss" title="❌ 2026-05-17"></span><span class="pe-dot miss" title="❌ 2026-05-18"></span><span class="pe-dot miss" title="❌ 2026-05-19"></span><span class="pe-dot miss" title="❌ 2026-05-20"></span><span class="pe-dot miss" title="❌ 2026-05-21"></span><span class="pe-dot miss" title="❌ 2026-05-22"></span><br style="margin-bottom:4px;"><span class="pe-dot miss" title="❌ 2026-05-23"></span><span class="pe-dot miss" title="❌ 2026-05-24"></span><span class="pe-dot miss" title="❌ 2026-05-25"></span><span class="pe-dot miss" title="❌ 2026-05-26"></span><span class="pe-dot miss" title="❌ 2026-05-27"></span><span class="pe-dot miss" title="❌ 2026-05-28"></span><span class="pe-dot today" title="Today"></span>
+      </div>
+      <div style="padding:0 24px 16px;font-size:12px;color:#86868b;">
+        <span class="pe-dot done" style="display:inline-block;margin-right:4px;"></span> Done
+        <span class="pe-dot today" style="display:inline-block;margin:0 4px 0 16px;"></span> Today
+        <span class="pe-dot miss" style="display:inline-block;margin:0 4px 0 16px;"></span> Missed
+      </div>
+    </div><div class="empty-state"><div class="icon">✨</div><p>No PE sessions logged yet.<br/>Tell me when you do it and I will track it daily for you.</p></div>
   </div>
 
 </div>
