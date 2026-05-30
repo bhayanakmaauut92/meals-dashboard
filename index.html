@@ -1198,13 +1198,6 @@ body {
       <div class="trends-title">📅 Upcoming Week</div>
       <div class="trend-item">
         <div class="trend-header">
-          <span class="trend-label">Saturday</span>
-          <span class="trend-cal" style="font-size:15px;color:#636366;">Gym Workout - TBD</span>
-        </div>
-        <div class="trend-meta" style="font-size:12px;color:#86868b;">Let me know what the workout is</div>
-      </div>
-      <div class="trend-item">
-        <div class="trend-header">
           <span class="trend-label">Sunday</span>
           <span class="trend-cal" style="font-size:15px;color:#636366;">Pilates</span>
         </div>
@@ -1225,6 +1218,56 @@ body {
        ════════════════════════════════════════════════ -->
   <div id="view-workout-tracker" class="view">
     
+    <div class="day-card">
+      <div class="day-header" onclick="toggleDay('20260530')" style="cursor:pointer;">
+        <div class="day-name">Today <span>2026-05-30</span></div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span class="w-status completed">✅ Completed</span>
+          <div class="day-total" style="font-size:14px;color:#636366;">Gym Workout </div>
+        </div>
+      </div>
+      <div id="wl-20260530" style="display:block;">
+        
+            <div class="p-meal">
+              <span class="p-food">Treadmill - Incline Walk</span>
+              <span style="font-size:12px;color:#86868b;text-align:right;">
+                1×10 @  · Speed 5, Incline 12
+              </span>
+            </div>
+            <div class="p-meal">
+              <span class="p-food">Pull-ups</span>
+              <span style="font-size:12px;color:#86868b;text-align:right;">
+                1×15 @ 
+              </span>
+            </div>
+            <div class="p-meal">
+              <span class="p-food">Single Arm Pulley Pulldown</span>
+              <span style="font-size:12px;color:#86868b;text-align:right;">
+                2×None @  · Set 1: 45kg, Set 2: 40kg
+              </span>
+            </div>
+            <div class="p-meal">
+              <span class="p-food">U-Bar Pulldown (Both Lats)</span>
+              <span style="font-size:12px;color:#86868b;text-align:right;">
+                1×None @  · U-shaped bar, both lats at same time
+              </span>
+            </div>
+            <div class="p-meal">
+              <span class="p-food">Lat Rows (U-Bar on Pulley)</span>
+              <span style="font-size:12px;color:#86868b;text-align:right;">
+                1×15 @  · Same bar, same pulley
+              </span>
+            </div>
+            <div class="p-meal">
+              <span class="p-food">Chest Butterfly Press Machine</span>
+              <span style="font-size:12px;color:#86868b;text-align:right;">
+                3×None @  · Set 1: 40kg x 12 reps, Set 2: 55kg x 5 reps, Set 3: 45kg x 20 reps
+              </span>
+            </div>
+        
+        
+      </div>
+    </div>
     <div class="day-card">
       <div class="day-header" onclick="toggleDay('20260529')" style="cursor:pointer;">
         <div class="day-name">Friday <span>2026-05-29</span></div>
@@ -1489,7 +1532,7 @@ body {
 
       <div class="ana-card">
         <div class="ana-label">🔥 Discipline Score</div>
-        <div class="ana-num gold">50%</div>
+        <div class="ana-num gold">67%</div>
         <div class="ana-sub">Composite of all metrics</div>
       </div>
 
@@ -1513,8 +1556,8 @@ body {
 
       <div class="ana-card">
         <div class="ana-label">🏋️ Workouts Done</div>
-        <div class="ana-num gold">0</div>
-        <div class="ana-sub">0 exercises · 0 min</div>
+        <div class="ana-num green">1</div>
+        <div class="ana-sub">6 exercises · 0 min</div>
       </div>
 
       <div class="ana-card">
