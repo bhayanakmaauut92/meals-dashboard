@@ -119,6 +119,51 @@ body {
   .pe-dot.miss { background: #e8e8ed; }
   .pe-dot.today { background: #d4a040; box-shadow: 0 0 0 2px #fff, 0 0 0 3px #d4a040; }
 
+  /* ── Analytics ── */
+  .ana-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 16px auto;
+    max-width: 720px;
+  }
+  .ana-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 18px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    border: 1px solid #e8e8ed;
+    text-align: center;
+  }
+  .ana-card .ana-num {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-top: 4px;
+  }
+  .ana-card .ana-label {
+    font-size: 12px;
+    color: #86868b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .ana-card .ana-sub {
+    font-size: 11px;
+    color: #a1a1a6;
+    margin-top: 2px;
+  }
+  .ana-card .green { color: #4cd964; }
+  .ana-card .gold { color: #d4a040; }
+  .ana-card .red { color: #e34040; }
+  .ana-card .blue { color: #5ac8fa; }
+  .ana-card .purple { color: #af52de; }
+  .ana-full {
+    grid-column: 1 / -1;
+  }
+  @media (max-width: 600px) {
+    .ana-grid { grid-template-columns: 1fr; }
+  }
+
   /* ── Header macro ring ── */
   .header .macro-ring {
     display: flex;
@@ -566,6 +611,7 @@ body {
   <button onclick="showView('recipes')">📖 Recipes</button>
   <button onclick="showView('expenses')">💰 Expenses</button>
   <button onclick="showView('looksmaxxing')">✨ Looksmaxxing</button>
+  <button onclick="showView('analytics')">📈 Analytics</button>
 </div>
 
 <!-- ── Header ── -->
@@ -1412,6 +1458,193 @@ body {
         <span class="pe-dot miss" style="display:inline-block;margin:0 4px 0 16px;"></span> Missed
       </div>
     </div><div class="empty-state"><div class="icon">✨</div><p>No PE sessions logged yet.<br/>Tell me when you do it and I will track it daily for you.</p></div>
+  </div>
+
+  <!-- ════════════════════════════════════════════════
+       VIEW 8: ANALYTICS
+       ════════════════════════════════════════════════ -->
+  <div id="view-analytics" class="view">
+    
+    <div class="ana-grid">
+
+      <div class="ana-card">
+        <div class="ana-label">🔥 Discipline Score</div>
+        <div class="ana-num gold">50%</div>
+        <div class="ana-sub">Composite of all metrics</div>
+      </div>
+
+      <div class="ana-card">
+        <div class="ana-label">📆 Days Tracked</div>
+        <div class="ana-num blue">3/3</div>
+        <div class="ana-sub">100% meal logging consistency</div>
+      </div>
+
+      <div class="ana-card">
+        <div class="ana-label">🍽️ Avg Daily Calories</div>
+        <div class="ana-num green">1737</div>
+        <div class="ana-sub">of 2400 kcal target (72%)</div>
+      </div>
+
+      <div class="ana-card">
+        <div class="ana-label">🥩 Avg Daily Protein</div>
+        <div class="ana-num red">116g</div>
+        <div class="ana-sub">of 200g target (57%)</div>
+      </div>
+
+      <div class="ana-card">
+        <div class="ana-label">🏋️ Workouts Done</div>
+        <div class="ana-num gold">0</div>
+        <div class="ana-sub">0 exercises · 0 min</div>
+      </div>
+
+      <div class="ana-card">
+        <div class="ana-label">🔱 PE Streak</div>
+        <div class="ana-num red">0d</div>
+        <div class="ana-sub">Best: 0d · 0% 30-day</div>
+      </div>
+
+      <div class="ana-card">
+        <div class="ana-label">💵 Total Food Spend</div>
+        <div class="ana-num gold">₹0</div>
+        <div class="ana-sub">₹0 groceries · ₹0 eating out</div>
+      </div>
+
+      <div class="ana-card">
+        <div class="ana-label">🎯 Protein Target Days</div>
+        <div class="ana-num red">0</div>
+        <div class="ana-sub">0% of days hit ≥180g protein</div>
+      </div>
+
+    </div>
+    <div class="macro-card">
+      <div class="macro-card-title">📊 This Week Overview</div>
+      <div class="macro-card-sub">Week of 25 May 2026 · 3 days with data</div>
+      <div class="macro-row">
+        <div class="m-icon">🔥</div>
+        <div class="m-label" style="width:90px;">Avg Cals</div>
+        <div class="m-bar-bg"><div class="m-bar-fill cal" style="width:72%;"></div></div>
+        <div class="m-values"><strong>1737</strong> / <span class="m-target">2400</span></div>
+      </div>
+      <div class="macro-row">
+        <div class="m-icon">🥩</div>
+        <div class="m-label" style="width:90px;">Avg Protein</div>
+        <div class="m-bar-bg"><div class="m-bar-fill p" style="width:57%;"></div></div>
+        <div class="m-values"><strong>116g</strong> / <span class="m-target">200g</span></div>
+      </div>
+      <div class="macro-row" style="border:none;">
+        <div class="m-icon">💵</div>
+        <div class="m-label" style="width:90px;">Week Spend</div>
+        <div class="m-bar-bg"><div class="m-bar-fill cal" style="width:0%;"></div></div>
+        <div class="m-values"><strong>₹0</strong> / <span class="m-target">₹500</span> eat-out</div>
+      </div>
+    </div>
+    <div class="trends-card">
+      <div class="trends-title">🎯 Macro Target Hit Rate</div>
+      
+      <div class="trend-item">
+        <div class="trend-header">
+          <span class="trend-label">Calories ≥ 2000</span>
+          <span class="trend-cal" style="font-size:15px;color:gold;">1/3 days</span>
+        </div>
+        <div class="trend-bar-bg">
+          <div class="trend-bar-fill" style="width:33%;background:gold;"></div>
+        </div>
+      </div>
+      <div class="trend-item">
+        <div class="trend-header">
+          <span class="trend-label">Protein ≥ 180g</span>
+          <span class="trend-cal" style="font-size:15px;color:green;">0/3 days</span>
+        </div>
+        <div class="trend-bar-bg">
+          <div class="trend-bar-fill" style="width:0%;background:green;"></div>
+        </div>
+      </div>
+      <div class="trend-item">
+        <div class="trend-header">
+          <span class="trend-label">Carbs ≥ 150g</span>
+          <span class="trend-cal" style="font-size:15px;color:blue;">1/3 days</span>
+        </div>
+        <div class="trend-bar-bg">
+          <div class="trend-bar-fill" style="width:33%;background:blue;"></div>
+        </div>
+      </div>
+      <div class="trend-item">
+        <div class="trend-header">
+          <span class="trend-label">Fat ≤ 90g</span>
+          <span class="trend-cal" style="font-size:15px;color:red;">2/3 days</span>
+        </div>
+        <div class="trend-bar-bg">
+          <div class="trend-bar-fill" style="width:66%;background:red;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="trends-card">
+      <div class="trends-title">📈 Last 7 Days</div>
+      
+      <div class="trend-item" style="padding:10px 24px;">
+        <div class="trend-header">
+          <span class="trend-label">Sun</span>
+          <span class="trend-meta" style="font-weight:600;">0 kcal · P 0g</span>
+        </div>
+        <div class="trend-bar-bg">
+          <div class="trend-bar-fill" style="width:0%;background:#e8e8ed;"></div>
+        </div>
+      </div>
+      <div class="trend-item" style="padding:10px 24px;">
+        <div class="trend-header">
+          <span class="trend-label">Mon</span>
+          <span class="trend-meta" style="font-weight:600;">0 kcal · P 0g</span>
+        </div>
+        <div class="trend-bar-bg">
+          <div class="trend-bar-fill" style="width:0%;background:#e8e8ed;"></div>
+        </div>
+      </div>
+      <div class="trend-item" style="padding:10px 24px;">
+        <div class="trend-header">
+          <span class="trend-label">Tue</span>
+          <span class="trend-meta" style="font-weight:600;">0 kcal · P 0g</span>
+        </div>
+        <div class="trend-bar-bg">
+          <div class="trend-bar-fill" style="width:0%;background:#e8e8ed;"></div>
+        </div>
+      </div>
+      <div class="trend-item" style="padding:10px 24px;">
+        <div class="trend-header">
+          <span class="trend-label">Wed</span>
+          <span class="trend-meta" style="font-weight:600;">1545 kcal · P 104g</span>
+        </div>
+        <div class="trend-bar-bg">
+          <div class="trend-bar-fill" style="width:64%;background:#d4a040;"></div>
+        </div>
+      </div>
+      <div class="trend-item" style="padding:10px 24px;">
+        <div class="trend-header">
+          <span class="trend-label">Thu</span>
+          <span class="trend-meta" style="font-weight:600;">1607 kcal · P 122g</span>
+        </div>
+        <div class="trend-bar-bg">
+          <div class="trend-bar-fill" style="width:66%;background:#d4a040;"></div>
+        </div>
+      </div>
+      <div class="trend-item" style="padding:10px 24px;">
+        <div class="trend-header">
+          <span class="trend-label">Fri</span>
+          <span class="trend-meta" style="font-weight:600;">2060 kcal · P 123g</span>
+        </div>
+        <div class="trend-bar-bg">
+          <div class="trend-bar-fill" style="width:85%;background:#4cd964;"></div>
+        </div>
+      </div>
+      <div class="trend-item" style="padding:10px 24px;">
+        <div class="trend-header">
+          <span class="trend-label">Today</span>
+          <span class="trend-meta" style="font-weight:600;">0 kcal · P 0g</span>
+        </div>
+        <div class="trend-bar-bg">
+          <div class="trend-bar-fill" style="width:0%;background:#e8e8ed;"></div>
+        </div>
+      </div>
+    </div>
   </div>
 
 </div>
