@@ -1,6 +1,17 @@
 {
   "meals": [
     {
+      "date": "2026-05-30",
+      "time": "Restaurant meal (woke late)",
+      "foods": "Restaurant meal + Vodka Coke",
+      "calories": 2310,
+      "protein_g": 0,
+      "carbs_g": 0,
+      "fat_g": 0,
+      "breakdown": "Restaurant meal: 1880 kcal | Vodka + Coke: 430 kcal | Grand Total: 2310 kcal",
+      "notes": "No macros available - restaurant meal. Wake up late day per Ryan's schedule."
+    },
+    {
       "date": "2026-05-27",
       "time": "8:00",
       "foods": "Monster Energy 330ml + Protein Wafer Bar (24g protein)",
@@ -169,5 +180,5 @@
     }
   ],
   "created": "2026-05-27",
-  "last_updated": "2026-05-29"
+  "last_updated": "2026-05-30"
 }
