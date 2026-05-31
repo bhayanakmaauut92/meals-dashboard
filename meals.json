@@ -1,6 +1,28 @@
 {
   "meals": [
     {
+      "date": "2026-05-31",
+      "time": "Meal 1",
+      "foods": "3 eggs sunny side up + 3 medium sliced bread",
+      "calories": 480,
+      "protein_g": 24,
+      "carbs_g": 40,
+      "fat_g": 25,
+      "breakdown": "3 eggs fried in oil ~270kcal (18g P, 1g C, 22g F) | 3 medium sliced bread ~210kcal (6g P, 39g C, 3g F)",
+      "notes": ""
+    },
+    {
+      "date": "2026-05-31",
+      "time": "Meal 2 (2 hrs later)",
+      "foods": "200g rice + 90g chicken kheema",
+      "calories": 440,
+      "protein_g": 23,
+      "carbs_g": 57,
+      "fat_g": 12,
+      "breakdown": "200g cooked rice ~260kcal (5g P, 56g C, 1g F) | 90g chicken kheema ~180kcal (18g P, 1g C, 11g F)",
+      "notes": "Last of the chicken kheema"
+    },
+    {
       "date": "2026-05-30",
       "time": "Late night hungover meal",
       "foods": "100g homecooked white chana + 110g leftover chicken kheema",
@@ -191,5 +213,5 @@
     }
   ],
   "created": "2026-05-27",
-  "last_updated": "2026-05-30"
+  "last_updated": "2026-05-31"
 }
