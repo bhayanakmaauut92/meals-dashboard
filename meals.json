@@ -2,6 +2,17 @@
   "meals": [
     {
       "date": "2026-05-31",
+      "time": "Meal 4",
+      "foods": "80g homecooked white chana + 80g boiled rice",
+      "calories": 202,
+      "protein_g": 9,
+      "carbs_g": 35,
+      "fat_g": 3,
+      "breakdown": "80g white chana ~136kcal (8g P, 20g C, 2g F) | 80g boiled rice ~66kcal (2g P, 15g C, 1g F)",
+      "notes": "Splurge meal - simple chana rice"
+    },
+    {
+      "date": "2026-05-31",
       "time": "Meal? - Chai + Rusks",
       "foods": "250ml chai (less milk, medium sugar) + 10 pieces of rusk",
       "calories": 370,
