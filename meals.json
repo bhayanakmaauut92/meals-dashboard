@@ -2,6 +2,17 @@
   "meals": [
     {
       "date": "2026-05-31",
+      "time": "Meal 3",
+      "foods": "150g homecooked Afghani chicken + 150g boiled potato stir fried (less oil) + 20g raw cabbage",
+      "calories": 555,
+      "protein_g": 38,
+      "carbs_g": 34,
+      "fat_g": 28,
+      "breakdown": "150g Afghani chicken (boneless, less oil/cream) ~285kcal (24g P, 6g C, 18g F) | 150g stir fried boiled potato ~230kcal (3g P, 28g C, 12g F) | 20g raw cabbage ~5kcal (0.3g P, 1g C, 0g F)",
+      "notes": "Homecooked Afghani chicken - less oil/cream. Potatoes stir fried in minimal oil."
+    },
+    {
+      "date": "2026-05-31",
       "time": "Meal 1",
       "foods": "3 eggs sunny side up + 3 medium sliced bread",
       "calories": 480,
