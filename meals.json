@@ -2,6 +2,17 @@
   "meals": [
     {
       "date": "2026-05-30",
+      "time": "Late night hungover meal",
+      "foods": "100g homecooked white chana + 110g leftover chicken kheema",
+      "calories": 391,
+      "protein_g": 35,
+      "carbs_g": 27,
+      "fat_g": 14,
+      "breakdown": "100g white chana ~171kcal (10g P, 26g C, 3g F) | 110g chicken kheema ~220kcal (25g P, 1g C, 11g F)",
+      "notes": "Post-alcohol meal after burger + vodka day. Low satiety from alcohol, needed real food."
+    },
+    {
+      "date": "2026-05-30",
       "time": "Restaurant meal (woke late)",
       "foods": "Restaurant meal + Vodka Coke",
       "calories": 2310,
