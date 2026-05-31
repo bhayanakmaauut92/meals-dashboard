@@ -2,6 +2,17 @@
   "meals": [
     {
       "date": "2026-05-31",
+      "time": "Meal? - Chai + Rusks",
+      "foods": "250ml chai (less milk, medium sugar) + 10 pieces of rusk",
+      "calories": 400,
+      "protein_g": 8,
+      "carbs_g": 74,
+      "fat_g": 7,
+      "breakdown": "250ml chai (less milk, medium sugar) ~50kcal (0g P, 10g C, 1g F) | 10 pieces rusk ~350kcal (8g P, 64g C, 6g F)",
+      "notes": ""
+    },
+    {
+      "date": "2026-05-31",
       "time": "Meal 3",
       "foods": "150g homecooked Afghani chicken + 150g boiled potato stir fried (less oil) + 20g raw cabbage",
       "calories": 555,
