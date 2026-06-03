@@ -2,14 +2,47 @@
   "meals": [
     {
       "date": "2026-06-02",
-      "time": "Meal 1",
-      "foods": "170g leftover channa + 300ml chai with sugar + 12 rusks + 150g paneer bhurji on 3 bread slices + 1 Munch Maxx",
-      "calories": 1700,
-      "protein_g": 64,
-      "carbs_g": 205,
-      "fat_g": 67,
-      "breakdown": "170g leftover channa ~291kcal (17g P, 44g C, 4g F) | 300ml chai with sugar ~70kcal (1g P, 14g C, 1g F) | 12 rusks ~480kcal (8g P, 84g C, 12g F) | 150g paneer bhurji ~519kcal (34g P, 12g C, 38g F) | 3 bread slices ~225kcal (8g P, 42g C, 3g F) | 1 Munch Maxx ~115kcal (1g P, 14g C, 6g F)",
-      "notes": "1737 kcal - chai rusk + bhurji bread combo + leftover channa"
+      "time": "Meal 1 - Channa",
+      "foods": "170g leftover channa",
+      "calories": 291,
+      "protein_g": 17,
+      "carbs_g": 44,
+      "fat_g": 4,
+      "breakdown": "170g leftover channa ~291kcal (17g P, 44g C, 4g F)",
+      "notes": ""
+    },
+    {
+      "date": "2026-06-02",
+      "time": "Chai + Rusks",
+      "foods": "300ml chai with sugar + 12 rusks",
+      "calories": 550,
+      "protein_g": 9,
+      "carbs_g": 98,
+      "fat_g": 13,
+      "breakdown": "300ml chai with sugar ~70kcal (1g P, 14g C, 1g F) | 12 rusks ~480kcal (8g P, 84g C, 12g F)",
+      "notes": "Chai rusk session"
+    },
+    {
+      "date": "2026-06-02",
+      "time": "Paneer Bhurji Meal",
+      "foods": "150g paneer bhurji on 3 slices bread",
+      "calories": 744,
+      "protein_g": 42,
+      "carbs_g": 54,
+      "fat_g": 41,
+      "breakdown": "150g paneer bhurji ~519kcal (34g P, 12g C, 38g F) | 3 bread slices ~225kcal (8g P, 42g C, 3g F)",
+      "notes": "Paneer bhurji combo"
+    },
+    {
+      "date": "2026-06-02",
+      "time": "Snack",
+      "foods": "1 Munch Maxx",
+      "calories": 115,
+      "protein_g": 1,
+      "carbs_g": 14,
+      "fat_g": 6,
+      "breakdown": "1 Munch Maxx ~115kcal (1g P, 14g C, 6g F)",
+      "notes": "20 INR chocolate wafer"
     },
     {
       "date": "2026-06-01",
