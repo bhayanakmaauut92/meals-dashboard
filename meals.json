@@ -1,6 +1,17 @@
 {
   "meals": [
     {
+      "date": "2026-06-03",
+      "time": "Kachori + Potato + Kheema",
+      "foods": "210g Haldiram's kachori + 340g boiled potatoes + 175g homemade chicken kheema",
+      "calories": 1696,
+      "protein_g": 63,
+      "carbs_g": 187,
+      "fat_g": 79,
+      "breakdown": "210g Haldiram's kachori ~1050kcal (19g P, 116g C, 59g F) | 340g boiled potatoes ~296kcal (6g P, 68g C, 0g F) | 175g chicken kheema ~350kcal (38g P, 3g C, 20g F)",
+      "notes": ""
+    },
+    {
       "date": "2026-06-02",
       "time": "Meal 1 - Channa",
       "foods": "170g leftover channa",
@@ -301,5 +312,5 @@
     }
   ],
   "created": "2026-05-27",
-  "last_updated": "2026-06-02"
+  "last_updated": "2026-06-03"
 }
