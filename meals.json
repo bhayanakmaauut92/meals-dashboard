@@ -1,6 +1,28 @@
 {
   "meals": [
     {
+      "date": "2026-06-02",
+      "time": "Meal 1",
+      "foods": "170g leftover channa + 300ml chai with sugar + 12 rusks + 150g paneer bhurji on 3 bread slices + 1 Munch Maxx",
+      "calories": 1700,
+      "protein_g": 64,
+      "carbs_g": 205,
+      "fat_g": 67,
+      "breakdown": "170g leftover channa ~291kcal (17g P, 44g C, 4g F) | 300ml chai with sugar ~70kcal (1g P, 14g C, 1g F) | 12 rusks ~480kcal (8g P, 84g C, 12g F) | 150g paneer bhurji ~519kcal (34g P, 12g C, 38g F) | 3 bread slices ~225kcal (8g P, 42g C, 3g F) | 1 Munch Maxx ~115kcal (1g P, 14g C, 6g F)",
+      "notes": "1737 kcal - chai rusk + bhurji bread combo + leftover channa"
+    },
+    {
+      "date": "2026-06-01",
+      "time": "Meal 1",
+      "foods": "200g rice + 45g Amul shredded cheese + 3 eggs (fried rice)",
+      "calories": 760,
+      "protein_g": 34,
+      "carbs_g": 58,
+      "fat_g": 44,
+      "breakdown": "200g cooked rice ~260kcal (5g P, 56g C, 1g F) | 45g Amul shredded cheese ~180kcal (11g P, 1g C, 15g F) | 3 eggs in oil ~240kcal (18g P, 1g C, 18g F) | cooking oil ~80kcal (10g F)",
+      "notes": "Cheesy egg fried rice"
+    },
+    {
       "date": "2026-05-31",
       "time": "Meal 4",
       "foods": "80g homecooked white chana + 80g boiled rice",
@@ -246,5 +268,5 @@
     }
   ],
   "created": "2026-05-27",
-  "last_updated": "2026-05-31"
+  "last_updated": "2026-06-02"
 }
