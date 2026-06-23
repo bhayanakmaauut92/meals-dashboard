@@ -364,6 +364,17 @@
       "fat_g": 18.1,
       "breakdown": "88g dry pasta boiled ~308kcal (9.7g P, 64.2g C, 1.3g F) | 240g homemade butter chicken (less cream/oil) ~322kcal (36.0g P, 10.8g C, 16.8g F)",
       "notes": "First meal of the day"
+    },
+    {
+      "date": "2026-06-23",
+      "time": "Psyllium Husk",
+      "foods": "1 tbsp psyllium husk in 1 glass warm water",
+      "calories": 15,
+      "protein_g": 0,
+      "carbs_g": 4,
+      "fat_g": 0,
+      "breakdown": "1 tbsp psyllium husk ~15kcal (4g C - fiber)",
+      "notes": "Fiber supplement"
     }
   ],
   "created": "2026-05-27",
