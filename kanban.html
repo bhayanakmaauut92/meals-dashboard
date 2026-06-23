@@ -1,343 +1,719 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kanban · Scalesystems</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Inter', -apple-system, sans-serif;
-      background: #0a0a0f;
-      color: #e2e2e8;
-      min-height: 100vh;
-      padding: 24px;
-    }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kanban — Bird's Eye</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #5645d4;
+  --primary-pressed: #4534b3;
+  --link-blue: #0075de;
+  --brand-pink: #ff64c8;
+  --brand-orange: #dd5b00;
+  --brand-purple: #7b3ff2;
+  --brand-teal: #2a9d99;
+  --brand-green: #1aae39;
+  --brand-yellow: #f5d75e;
+  --tint-peach: #ffe8d4;
+  --tint-rose: #fde0ec;
+  --tint-mint: #d9f3e1;
+  --tint-lavender: #e6e0f5;
+  --tint-sky: #dcecfa;
+  --tint-yellow: #fef7d6;
+  --tint-yellow-bold: #f9e79f;
+  --canvas: #ffffff;
+  --surface: #f6f5f4;
+  --surface-soft: #fafaf9;
+  --hairline: #e5e3df;
+  --hairline-soft: #ede9e4;
+  --hairline-strong: #c8c4be;
+  --ink: #1a1a1a;
+  --charcoal: #37352f;
+  --slate: #5d5b54;
+  --steel: #787671;
+  --stone: #a4a097;
+  --muted: #bbb8b1;
+}
 
-    /* Header */
-    .header {
-      max-width: 1400px;
-      margin: 0 auto 32px;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-    .header h1 {
-      font-size: 28px;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      color: #fff;
-    }
-    .header h1 span {
-      font-weight: 400;
-      color: #666;
-      font-size: 16px;
-      letter-spacing: 0;
-    }
-    .header .meta {
-      font-size: 13px;
-      color: #888;
-    }
-    .header .meta span {
-      color: #555;
-    }
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; height: 100%; }
+body {
+  font-family: "Inter", -apple-system, "Segoe UI", Helvetica, sans-serif;
+  background: var(--surface-soft);
+  color: var(--charcoal);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
 
-    /* Stats row */
-    .stats {
-      max-width: 1400px;
-      margin: 0 auto 28px;
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .stat-card {
-      background: #12121a;
-      border: 1px solid #1e1e2a;
-      border-radius: 12px;
-      padding: 14px 22px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .stat-card .num {
-      font-size: 22px;
-      font-weight: 800;
-    }
-    .stat-card .label {
-      font-size: 13px;
-      color: #888;
-    }
-    .stat-card.done .num { color: #34d399; }
-    .stat-card.ready .num { color: #60a5fa; }
-    .stat-card.blocked .num { color: #f87171; }
-    .stat-card.total .num { color: #c084fc; }
+.topbar {
+  background: var(--canvas);
+  border-bottom: 1px solid var(--hairline);
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
 
-    /* Board */
-    .board {
-      max-width: 1400px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 20px;
-    }
-    @media (max-width: 960px) {
-      .board { grid-template-columns: 1fr; }
-    }
+.topbar .brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--ink);
+  letter-spacing: -0.3px;
+}
 
-    .column {
-      background: #0d0d16;
-      border: 1px solid #1a1a26;
-      border-radius: 14px;
-      padding: 16px;
-      min-height: 300px;
-    }
-    .column-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 14px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid #1a1a26;
-    }
-    .column-header h2 {
-      font-size: 14px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-    .column-header .count {
-      font-size: 13px;
-      font-weight: 600;
-      background: #1a1a26;
-      padding: 2px 10px;
-      border-radius: 20px;
-      color: #999;
-    }
-    .column.blocked .column-header h2 { color: #f87171; }
-    .column.ready .column-header h2 { color: #60a5fa; }
-    .column.done .column-header h2 { color: #34d399; }
+.topbar .brand .glyph {
+  width: 22px; height: 22px;
+  background: var(--ink);
+  color: white;
+  border-radius: 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: ui-serif, Georgia, serif;
+}
 
-    /* Cards */
-    .card {
-      background: #13131e;
-      border: 1px solid #1e1e2a;
-      border-radius: 10px;
-      padding: 14px;
-      margin-bottom: 10px;
-      cursor: default;
-      transition: border-color .2s, background .2s;
-    }
-    .card:hover {
-      border-color: #2e2e42;
-      background: #181825;
-    }
-    .card-title {
-      font-size: 14px;
-      font-weight: 600;
-      line-height: 1.4;
-      margin-bottom: 6px;
-      color: #eee;
-    }
-    .card-body {
-      font-size: 12.5px;
-      line-height: 1.5;
-      color: #999;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    .card-meta {
-      display: flex;
-      gap: 8px;
-      margin-top: 10px;
-      font-size: 11px;
-      color: #555;
-      flex-wrap: wrap;
-    }
-    .card-meta .tag {
-      background: #1a1a26;
-      padding: 2px 8px;
-      border-radius: 4px;
-      color: #777;
-    }
-    .card-meta .tenant {
-      background: #15152a;
-      color: #7c7cd4;
-      padding: 2px 8px;
-      border-radius: 4px;
-    }
-    .card.empty {
-      text-align: center;
-      color: #444;
-      font-size: 13px;
-      padding: 32px 16px;
-      border-style: dashed;
-      border-color: #1e1e2a;
-      background: transparent;
-    }
-    .card.empty:hover {
-      border-color: #1e1e2a;
-      background: transparent;
-    }
+.topbar .crumbs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--slate);
+  margin-left: 8px;
+}
 
-    /* Footer */
-    .footer {
-      max-width: 1400px;
-      margin: 40px auto 0;
-      text-align: center;
-      font-size: 12px;
-      color: #444;
-      border-top: 1px solid #14141e;
-      padding-top: 20px;
-    }
-    .footer a { color: #666; text-decoration: none; }
-    .footer a:hover { color: #999; }
+.topbar .crumbs strong {
+  color: var(--ink);
+  font-weight: 600;
+}
 
-    /* Separator for "ready" column — non-blocked, non-done */
-    .card.priority-high { border-left: 3px solid #f87171; }
-    .card.priority-mid { border-left: 3px solid #fbbf24; }
-    .card.priority-low { border-left: 3px solid #555; }
-  </style>
+.topbar .tabs {
+  display: flex;
+  margin-left: 16px;
+  gap: 0;
+}
+
+.topbar .tab {
+  padding: 6px 10px;
+  font-size: 13px;
+  color: var(--slate);
+  font-weight: 500;
+  border-bottom: 2px solid transparent;
+  cursor: default;
+}
+
+.topbar .tab.active {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+
+.topbar .right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font: 500 13px/1.3 "Inter", system-ui;
+  border: 1px solid transparent;
+  cursor: pointer;
+  background: transparent;
+  color: var(--charcoal);
+  transition: background .15s;
+  white-space: nowrap;
+}
+
+.btn:hover { background: var(--surface); }
+.btn-primary { background: var(--primary); color: white; }
+.btn-primary:hover { background: var(--primary-pressed); }
+.btn-danger { color: var(--steel); }
+.btn-danger:hover { background: var(--tint-rose); color: #c0392b; }
+
+/* --- Page structure --- */
+.page {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.page-header {
+  margin-bottom: 24px;
+}
+
+.page-header h1 {
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  color: var(--ink);
+  margin: 0 0 4px;
+}
+
+.page-header p {
+  font-size: 14px;
+  color: var(--slate);
+  margin: 0;
+}
+
+/* --- Kanban board --- */
+.board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+@media (max-width: 1100px) { .board { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .board { grid-template-columns: 1fr; } }
+
+.column {
+  background: transparent;
+}
+
+.col-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--charcoal);
+}
+
+.col-head .status-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+}
+
+.col-head .status-dot.todo { background: var(--stone); }
+.col-head .status-dot.progress { background: var(--brand-yellow); }
+.col-head .status-dot.review { background: var(--brand-orange); }
+.col-head .status-dot.done { background: var(--brand-green); }
+
+.col-head .badge {
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+  color: var(--charcoal);
+}
+
+.col-head .badge.todo { background: var(--tint-yellow-bold); color: #6d4c00; }
+.col-head .badge.progress { background: var(--tint-sky); color: #00497a; }
+.col-head .badge.review { background: var(--tint-rose); color: var(--steel); }
+.col-head .badge.done { background: var(--tint-mint); color: #117026; }
+
+.col-head .count {
+  margin-left: auto;
+  color: var(--steel);
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.tasks {
+  min-height: 80px;
+}
+
+/* --- Task card --- */
+.task {
+  background: var(--canvas);
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 6px;
+  cursor: grab;
+  transition: box-shadow .15s, border-color .15s;
+  position: relative;
+  user-select: none;
+}
+
+.task:hover {
+  border-color: var(--primary);
+  box-shadow: rgba(86,69,212,0.08) 0 2px 8px;
+}
+
+.task:active { cursor: grabbing; }
+.task.dragging { opacity: 0.5; }
+
+.task .project-tag {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.task .project-tag.tag-aimn { color: var(--primary); }
+.task .project-tag.tag-fuel { color: var(--brand-teal); }
+.task .project-tag.tag-github { color: var(--brand-orange); }
+.task .project-tag.tag-system { color: var(--steel); }
+
+.task .task-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--charcoal);
+  line-height: 1.4;
+  word-break: break-word;
+  padding-right: 20px;
+}
+
+.task .task-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  font-size: 11px;
+  color: var(--steel);
+}
+
+.task .task-meta .label {
+  font-size: 10px;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-weight: 500;
+}
+
+.task .task-meta .label.pri-high { background: var(--tint-rose); color: #c0392b; }
+.task .task-meta .label.pri-med { background: var(--tint-yellow); color: #6d4c00; }
+.task .task-meta .label.pri-low { background: var(--tint-mint); color: #117026; }
+
+.task .task-delete {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 20px;
+  height: 20px;
+  border: none;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 4px;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity .15s, background .15s, color .15s;
+}
+
+.task:hover .task-delete { opacity: 1; }
+.task .task-delete:hover { background: var(--tint-rose); color: #c0392b; }
+
+.drag-over { border-color: var(--primary) !important; background: var(--tint-lavender) !important; }
+.empty-state { color: var(--muted); font-size: 13px; text-align: center; padding: 20px 0; }
+
+/* --- Add task --- */
+.add-area { margin-top: 8px; }
+
+.add-area textarea {
+  width: 100%;
+  background: var(--surface-soft);
+  border: 1px solid var(--hairline);
+  border-radius: 8px;
+  padding: 8px 10px;
+  color: var(--charcoal);
+  font-size: 13px;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 40px;
+  outline: none;
+  transition: border-color .15s;
+}
+
+.add-area textarea:focus {
+  border-color: var(--primary);
+  background: var(--canvas);
+}
+
+.add-area .add-actions {
+  display: flex;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+/* --- Section --- */
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--steel);
+  margin: 24px 0 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--hairline-soft);
+}
+
+/* --- Export/Import --- */
+.hidden-input { display: none; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .page { padding: 12px; }
+  .topbar { padding: 10px 12px; }
+  .topbar .tabs { display: none; }
+}
+</style>
 </head>
 <body>
-  <script>
-    const TASKS = [
-      { id: "t_a9bf488e", title: "📚 YouTube books → Kindle send", body: "Auto-email EPUBs to Kindle via himalaya CLI + sendmail. Needs Kindle email address and sendmail setup.", status: "blocked", priority: 2, tenant: "scalesystems" },
-      { id: "t_1d7a2028", title: "🔐 Todoist API integration", body: "Sync kanban to Todoist. Needs user's Todoist API token (previous one was redacted by security).", status: "blocked", priority: 1, tenant: "scalesystems" },
-      { id: "t_049878ad", title: "🌐 Deploy Aprilia RS457 page", body: "Deploy Apple-style Aprilia RS457 parts page to Vercel. Waiting on user's Vercel token or login.", status: "blocked", priority: 1, tenant: "scalesystems" },
-      { id: "t_17f0d985", title: "🎙️ Podcast Clipping Pipeline", body: "Extract highlights from raw recordings — auto-clip, cleanup, brand.", status: "blocked", priority: 0, tenant: "scalesystems" },
-      { id: "t_2c7916b0", title: "🤖 Content Automation Pipeline", body: "Auto-clip, schedule, cross-post pipeline for content distribution.", status: "blocked", priority: 0, tenant: "scalesystems" },
-      { id: "t_e6884b48", title: "📱 Anna's Archive download workflow", body: "Book links from YouTube recs → Anna's Archive slow download links. Blocked by DDoS-Guard/hCaptcha.", status: "done", priority: 2, tenant: "scalesystems" },
-      { id: "t_f0cd819a", title: "🎬 AIMN logo transition pipeline", body: "Hyperframes + GSAP + gofile.io: HTML → 1080p render → upload → link. Skill saved.", status: "done", priority: 2, tenant: "scalesystems" },
-      { id: "t_1bde09a9", title: "🔄 Cron job — Scalesystems status check-in", body: "Periodic status check of board for blocked tasks, pipeline status.", status: "done", priority: 1, tenant: "scalesystems" },
-      { id: "t_83c668d1", title: "📈 Viral Content Strategy", body: "Hooks, pacing, captions, platform optimization strategy.", status: "done", priority: 0, tenant: "scalesystems" },
-      { id: "t_d84ed914", title: "🎬 Video Production & Lighting", body: "Framing, lighting setup, audio quality standards.", status: "done", priority: 0, tenant: "scalesystems" },
-      { id: "t_c691dcd4", title: "💬 Decide: Recording pipeline method", body: "Syncthing/rsync/local — decided approach.", status: "done", priority: 0, tenant: "scalesystems" },
-      { id: "t_39f55a4b", title: "💬 Discussion: Remotion vs Hyperframes", body: "Evaluated both for clip pipeline. Hyperframes chosen.", status: "done", priority: 0, tenant: "scalesystems" },
-      { id: "t_89540585", title: "🎬 News channel YouTube Shorts template", body: "Animate logo + timestamp template — complete.", status: "done", priority: 0, tenant: "scalesystems" }
-    ];
 
-    const statusOrder = { "blocked": 0, "ready": 1, "done": 2 };
-    const priorityLabel = ["low", "mid", "high"];
+<div id="lockOverlay" style="position:fixed;inset:0;z-index:9999;background:var(--surface-soft);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;">
+  <div style="font-size:32px;font-weight:600;color:var(--ink);letter-spacing:-0.5px;">✦ Kanban</div>
+  <div style="color:var(--slate);font-size:14px;">Password required</div>
+  <input id="pwInput" type="password" style="padding:8px 14px;border-radius:8px;border:1px solid var(--hairline-strong);font-size:16px;font-family:inherit;width:240px;text-align:center;outline:none;background:var(--canvas);color:var(--charcoal);" placeholder="Enter password" onkeydown="if(event.key==='Enter')checkPw()">
+  <button onclick="checkPw()" style="padding:8px 24px;border-radius:8px;border:none;background:var(--primary);color:white;font:500 14px Inter;cursor:pointer;">Unlock</button>
+  <div id="pwError" style="color:#c0392b;font-size:13px;display:none;">Wrong password</div>
+</div>
 
-    document.addEventListener("DOMContentLoaded", () => {
-      const columns = {
-        blocked: document.getElementById("col-blocked"),
-        ready: document.getElementById("col-ready"),
-        done: document.getElementById("col-done")
-      };
-      const counters = {
-        blocked: document.getElementById("cnt-blocked"),
-        ready: document.getElementById("cnt-ready"),
-        done: document.getElementById("cnt-done")
-      };
+<script>
+function checkPw() {
+  const pw = document.getElementById('pwInput').value;
+  if (pw === 'entirelyinhouse') {
+    document.getElementById('lockOverlay').style.display = 'none';
+    sessionStorage.setItem('kanban_unlocked', '1');
+  } else {
+    document.getElementById('pwError').style.display = 'block';
+    setTimeout(() => document.getElementById('pwError').style.display = 'none', 2000);
+  }
+}
+if (sessionStorage.getItem('kanban_unlocked')) {
+  document.getElementById('lockOverlay').style.display = 'none';
+}
+</script>
 
-      const now = new Date();
-      const fmtDate = now.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
-      const fmtTime = now.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
-      document.getElementById("live-date").textContent = `${fmtDate} · ${fmtTime}`;
+<div class="topbar">
+  <div class="brand"><span class="glyph">✦</span> Workspace</div>
+  <div class="crumbs">🏠 Projects / <strong>Kanban</strong></div>
+  <div class="tabs">
+    <span class="tab">Table</span>
+    <span class="tab active">Board</span>
+    <span class="tab">Calendar</span>
+  </div>
+  <div class="right">
+    <button class="btn" onclick="exportData()">Export</button>
+    <button class="btn" onclick="document.getElementById('importInput').click()">Import</button>
+    <input type="file" id="importInput" class="hidden-input" accept=".json" onchange="importData(event)">
+    <button class="btn btn-danger" onclick="clearAll()">Clear</button>
+  </div>
+</div>
 
-      // Sort: priority desc, then title
-      const sorted = [...TASKS].sort((a, b) => {
-        if (b.priority !== a.priority) return b.priority - a.priority;
-        return a.title.localeCompare(b.title);
-      });
+<div class="page">
+  <div class="page-header">
+    <h1>Projects & Actions</h1>
+    <p>Bird's-eye view of everything in flight</p>
+  </div>
 
-      const counts = { blocked: 0, ready: 0, done: 0 };
+  <div class="board" id="board">
+    <!-- To Do -->
+    <div class="column" data-col="todo">
+      <div class="col-head">
+        <span class="status-dot todo"></span>
+        <span class="badge todo">To do</span>
+        <span class="count" id="todo-count">0</span>
+      </div>
+      <div class="tasks" id="todo-tasks" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+      <div class="add-area">
+        <textarea id="todo-input" placeholder="Add a task..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();addTask('todo')}"></textarea>
+        <div class="add-actions">
+          <button class="btn btn-primary" onclick="addTask('todo')">Add</button>
+        </div>
+      </div>
+    </div>
 
-      sorted.forEach(t => {
-        const card = document.createElement("div");
-        card.className = "card priority-" + priorityLabel[t.priority] || "priority-low";
-        if (t.status === "done") card.className = "card";
+    <!-- In Progress -->
+    <div class="column" data-col="in-progress">
+      <div class="col-head">
+        <span class="status-dot progress"></span>
+        <span class="badge progress">In progress</span>
+        <span class="count" id="progress-count">0</span>
+      </div>
+      <div class="tasks" id="progress-tasks" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+      <div class="add-area">
+        <textarea id="progress-input" placeholder="Add a task..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();addTask('in-progress')}"></textarea>
+        <div class="add-actions">
+          <button class="btn btn-primary" onclick="addTask('in-progress')">Add</button>
+        </div>
+      </div>
+    </div>
 
-        const body = t.body ? `<div class="card-body">${t.body}</div>` : "";
-        card.innerHTML = `
-          <div class="card-title">${t.title}</div>
-          ${body}
-          <div class="card-meta">
-            <span class="tenant">${t.tenant}</span>
-            <span class="tag">P${t.priority}</span>
-          </div>
-        `;
-        columns[t.status].appendChild(card);
-        counts[t.status]++;
-      });
+    <!-- In Review -->
+    <div class="column" data-col="review">
+      <div class="col-head">
+        <span class="status-dot review"></span>
+        <span class="badge review">Review</span>
+        <span class="count" id="review-count">0</span>
+      </div>
+      <div class="tasks" id="review-tasks" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+      <div class="add-area">
+        <textarea id="review-input" placeholder="Add a task..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();addTask('review')}"></textarea>
+        <div class="add-actions">
+          <button class="btn btn-primary" onclick="addTask('review')">Add</button>
+        </div>
+      </div>
+    </div>
 
-      // Fill empty columns
-      Object.entries(columns).forEach(([status, col]) => {
-        counters[status].textContent = counts[status];
-        if (counts[status] === 0) {
-          const empty = document.createElement("div");
-          empty.className = "card empty";
-          empty.textContent = "No tasks";
-          col.appendChild(empty);
-        }
-      });
+    <!-- Done -->
+    <div class="column" data-col="done">
+      <div class="col-head">
+        <span class="status-dot done"></span>
+        <span class="badge done">Done</span>
+        <span class="count" id="done-count">0</span>
+      </div>
+      <div class="tasks" id="done-tasks" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+      <div class="add-area">
+        <textarea id="done-input" placeholder="Add a task..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();addTask('done')}"></textarea>
+        <div class="add-actions">
+          <button class="btn btn-primary" onclick="addTask('done')">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-      // Stats
-      document.getElementById("stat-done").textContent = counts.done;
-      document.getElementById("stat-ready").textContent = counts.ready;
-      document.getElementById("stat-blocked").textContent = counts.blocked;
-      document.getElementById("stat-total").textContent = TASKS.length;
+<script>
+const KEY = 'kanban-birdseye';
+
+let data = {
+  todo: [],
+  'in-progress': [],
+  review: [],
+  done: [
+    { text: 'Dream Journal — password-protected, Superlist design', project: 'System', priority: 'med', date: 'Jun 5' }
+  ]
+};
+
+function load() {
+  try {
+    const saved = localStorage.getItem(KEY);
+    if (saved) data = JSON.parse(saved);
+  } catch(e) {}
+  render();
+}
+
+function save() {
+  localStorage.setItem(KEY, JSON.stringify(data));
+  render();
+}
+
+const colMap = { 'todo': 'todo', 'progress': 'in-progress', 'review': 'review', 'done': 'done' };
+const revColMap = { 'todo': 'todo', 'in-progress': 'progress', 'review': 'review', 'done': 'done' };
+
+function colId(col) {
+  const m = { 'todo': 'todo', 'in-progress': 'progress', 'review': 'review', 'done': 'done' };
+  return m[col] || col;
+}
+
+function render() {
+  for (const col of ['todo', 'in-progress', 'review', 'done']) {
+    const id = colId(col);
+    const container = document.getElementById(id + '-tasks');
+    const countEl = document.getElementById(id + '-count');
+    if (!container) continue;
+
+    const items = data[col] || [];
+    container.innerHTML = '';
+
+    if (countEl) countEl.textContent = items.length;
+
+    if (items.length === 0) {
+      container.innerHTML = '<div class="empty-state">No tasks</div>';
+      continue;
+    }
+
+    items.forEach((item, idx) => {
+      const card = document.createElement('div');
+      card.className = 'task';
+      card.draggable = true;
+      card.dataset.idx = idx;
+      card.dataset.col = col;
+
+      let tagClass = '';
+      const p = (item.project || '').toLowerCase();
+      if (p.includes('aimn') || p.includes('podcast') || p.includes('scalesystems')) tagClass = 'tag-aimn';
+      else if (p.includes('fuel') || p.includes('meal') || p.includes('pe')) tagClass = 'tag-fuel';
+      else if (p.includes('github') || p.includes('pages')) tagClass = 'tag-github';
+      else tagClass = 'tag-system';
+
+      let priClass = '';
+      if (item.priority === 'high') priClass = 'pri-high';
+      else if (item.priority === 'med') priClass = 'pri-med';
+      else priClass = 'pri-low';
+
+      let html = '';
+      if (item.project) {
+        html += `<div class="project-tag ${tagClass}">${esc(item.project)}</div>`;
+      }
+      html += `<div class="task-title">${esc(item.text)}</div>`;
+      html += `<div class="task-meta">`;
+      if (item.priority) {
+        html += `<span class="label ${priClass}">${item.priority}</span>`;
+      }
+      if (item.date) {
+        html += `<span>${item.date}</span>`;
+      }
+      html += `</div>`;
+      html += `<button class="task-delete" onclick="del('${col}',${idx})" title="Delete">✕</button>`;
+
+      card.innerHTML = html;
+      card.addEventListener('dragstart', dragStart);
+      card.addEventListener('dragend', dragEnd);
+
+      container.appendChild(card);
     });
-  </script>
+  }
+}
 
-  <div class="header">
-    <div>
-      <h1>Kanban <span>· Scalesystems</span></h1>
-      <div class="meta">Last updated <span id="live-date"></span></div>
-    </div>
-  </div>
+function esc(s) {
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
 
-  <div class="stats">
-    <div class="stat-card total">
-      <span class="num" id="stat-total"></span>
-      <span class="label">Total tasks</span>
-    </div>
-    <div class="stat-card blocked">
-      <span class="num" id="stat-blocked"></span>
-      <span class="label">Blocked</span>
-    </div>
-    <div class="stat-card ready">
-      <span class="num" id="stat-ready"></span>
-      <span class="label">Ready</span>
-    </div>
-    <div class="stat-card done">
-      <span class="num" id="stat-done"></span>
-      <span class="label">Done</span>
-    </div>
-  </div>
+function addTask(col) {
+  const id = colId(col);
+  const input = document.getElementById(id + '-input');
+  const text = (input.value || '').trim();
+  if (!text) return;
 
-  <div class="board">
-    <div class="column blocked">
-      <div class="column-header">
-        <h2>⛔ Blocked</h2>
-        <span class="count" id="cnt-blocked">0</span>
-      </div>
-      <div id="col-blocked"></div>
-    </div>
-    <div class="column ready">
-      <div class="column-header">
-        <h2>▶ Ready</h2>
-        <span class="count" id="cnt-ready">0</span>
-      </div>
-      <div id="col-ready"></div>
-    </div>
-    <div class="column done">
-      <div class="column-header">
-        <h2>✅ Done</h2>
-        <span class="count" id="cnt-done">0</span>
-      </div>
-      <div id="col-done"></div>
-    </div>
-  </div>
+  data[col].push({
+    text: text,
+    project: '',
+    priority: 'med',
+    date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' })
+  });
+  input.value = '';
+  save();
+}
 
-  <div class="footer">
-    <a href="https://bhayanakmaauut92.github.io/meals-dashboard/">Meals Dashboard</a> · <a href="https://github.com/bhayanakmaauut92/meals-dashboard">Source</a>
-  </div>
+function del(col, idx) {
+  data[col].splice(idx, 1);
+  save();
+}
+
+function clearAll() {
+  if (!confirm('Delete all tasks?')) return;
+  data = { todo: [], 'in-progress': [], review: [], done: [] };
+  save();
+}
+
+/* Drag & Drop */
+let dragItem = null;
+
+function dragStart(e) {
+  dragItem = { col: e.target.dataset.col, idx: parseInt(e.target.dataset.idx) };
+  e.target.classList.add('dragging');
+  e.dataTransfer.effectAllowed = 'move';
+}
+
+function dragEnd(e) {
+  e.target.classList.remove('dragging');
+  document.querySelectorAll('.drag-over').forEach(el => el.classList.remove('drag-over'));
+}
+
+function allowDrop(e) {
+  e.preventDefault();
+  e.currentTarget.classList.add('drag-over');
+}
+
+function drop(e) {
+  e.preventDefault();
+  const el = e.currentTarget;
+  el.classList.remove('drag-over');
+  if (!dragItem) return;
+
+  const target = el.id.replace('-tasks', '');
+  const toCol = colMap[target] || target;
+
+  const task = data[dragItem.col][dragItem.idx];
+  if (!task) return;
+
+  data[dragItem.col].splice(dragItem.idx, 1);
+  data[toCol].push(task);
+  dragItem = null;
+  save();
+}
+
+/* Export / Import */
+function exportData() {
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'kanban-' + new Date().toISOString().slice(0,10) + '.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function importData(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(ev) {
+    try {
+      const d = JSON.parse(ev.target.result);
+      if (d.todo && d['in-progress'] && d.review !== undefined && d.done) {
+        data = d;
+        save();
+      } else {
+        alert('Invalid format');
+      }
+    } catch(err) { alert('Invalid JSON'); }
+  };
+  reader.readAsText(file);
+  e.target.value = '';
+}
+
+/* — Auto-populate with current tasks — */
+data = {
+  "todo": [
+    { "text": "OBS recording workflow setup for remote hosts", "project": "AIMN Podcast", "priority": "high", "date": "Jun 4" },
+    { "text": "Podcatcher tool / content research for AIMN", "project": "AIMN Podcast", "priority": "med", "date": "Jun 5" },
+    { "text": "Grocery shopping (Wed + Sat)", "project": "Ryan's Fuel", "priority": "med", "date": "Sat" },
+    { "text": "Plan meals for next week on dashboard", "project": "Ryan's Fuel", "priority": "low", "date": "Sat" },
+    { "text": "PE 30-day check-in log (Jun 29)", "project": "Ryan's Fuel", "priority": "low", "date": "Jun 29" },
+    { "text": "Reddit profile: comment, engage, automate presence for AIMN", "project": "AIMN Podcast", "priority": "med", "date": "Long-term" },
+    { "text": "Email outreach system for booking podcast guests", "project": "AIMN Podcast", "priority": "med", "date": "Long-term" }
+  ],
+  "in-progress": [
+    { "text": "Thursday podcast shoot prep — speaker brief + topics", "project": "AIMN Podcast", "priority": "high", "date": "Tonight" },
+    { "text": "TBPN competitor brand teardown report", "project": "AIMN Podcast", "priority": "high", "date": "Jun 3" },
+    { "text": "Daily meal logging", "project": "Ryan's Fuel", "priority": "high", "date": "Daily" },
+    { "text": "Brand positioning shift — tools & business cases framing", "project": "AIMN Podcast", "priority": "high", "date": "Ongoing" }
+  ],
+  "review": [
+    { "text": "AIMN Format Guide for Guests (HTML + Pages)", "project": "AIMN Podcast", "priority": "med", "date": "Jun 3" },
+    { "text": "George Hotz 'Eternal Sloptember' topic added to guide", "project": "AIMN Podcast", "priority": "med", "date": "Jun 3" }
+  ],
+  "done": [
+    { "text": "GitHub Pages publish script (gh-pages.py)", "project": "Infrastructure", "priority": "med", "date": "Jun 3" },
+    { "text": "Publish AIMN guide to GitHub Pages", "project": "AIMN Podcast", "priority": "high", "date": "Jun 3" },
+    { "text": "Build kanban board (this!)", "project": "Infrastructure", "priority": "med", "date": "Jun 3" },
+    { "text": "yt-dlp installed on server", "project": "System", "priority": "low", "date": "Jun 3" },
+    { "text": "Teaching skill created", "project": "System", "priority": "low", "date": "Jun 2" },
+    { "text": "PE daily reminder cron setup", "project": "Ryan's Fuel", "priority": "med", "date": "May 29" },
+    { "text": "Speaker tips reminder cron (firing tonight 11:11 PM)", "project": "AIMN Podcast", "priority": "high", "date": "Jun 4" },
+    { "text": "Meals dashboard published to GitHub Pages", "project": "Ryan's Fuel", "priority": "med", "date": "May 27" },
+    { "text": "Panel discussion for upcoming podcast", "project": "AIMN Podcast", "priority": "med", "date": "May 30" }
+  ]
+};
+
+load();
+</script>
 </body>
 </html>

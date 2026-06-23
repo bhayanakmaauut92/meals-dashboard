@@ -309,8 +309,52 @@
       "fat_g": 10,
       "breakdown": "109g white chana ~186kcal (11g P, 28g C, 3g F) | 60g chicken kheema ~120kcal (13g P, 1g C, 7g F)",
       "notes": ""
+    },
+    {
+      "date": "2026-06-16",
+      "time": "Meal 1 - Khichdi + Papad + Dahi",
+      "foods": "400g low oil khichdi + 2 oven baked no oil papad (normal papad) + 70g dahi",
+      "calories": 620,
+      "protein_g": 39,
+      "carbs_g": 94,
+      "fat_g": 10,
+      "breakdown": "400g low oil khichdi ~500kcal (32g P, 80g C, 8g F) | 2 oven baked papad ~70kcal (4g P, 10g C, 0g F) | 70g dahi ~50kcal (3g P, 4g C, 2g F)",
+      "notes": "First meal of the day"
+    },
+    {
+      "date": "2026-06-17",
+      "time": "Meal 1",
+      "foods": "150g homemade Afghani chicken + 140g boiled potato (salt, onion powder) + 70g lightly fried frozen veggies with soy sauce",
+      "calories": 503,
+      "protein_g": 30,
+      "carbs_g": 43,
+      "fat_g": 23,
+      "breakdown": "150g Afghani chicken (boneless, less oil/cream) ~285kcal (24g P, 6g C, 18g F) | 140g boiled potato with salt + onion powder ~122kcal (3g P, 28g C, 0g F) | 70g lightly fried frozen veggies + soy sauce ~96kcal (3g P, 9g C, 5g F)",
+      "notes": "First meal of the day"
+    },
+    {
+      "date": "2026-06-17",
+      "time": "Meal 2",
+      "foods": "200g homemade chicken kheema + 200g boiled rice",
+      "calories": 660,
+      "protein_g": 47,
+      "carbs_g": 60,
+      "fat_g": 25,
+      "breakdown": "200g homemade chicken kheema ~400kcal (42g P, 4g C, 24g F) | 200g boiled rice ~260kcal (5g P, 56g C, 1g F)",
+      "notes": ""
+    },
+    {
+      "date": "2026-06-17",
+      "time": "Meal 3",
+      "foods": "100g boiled rice + 120g homemade chicken kheema + 70g shallow fried veggies",
+      "calories": 461,
+      "protein_g": 30,
+      "carbs_g": 38,
+      "fat_g": 20,
+      "breakdown": "100g boiled rice ~130kcal (3g P, 28g C, 1g F) | 120g homemade chicken kheema ~240kcal (25g P, 2g C, 14g F) | 70g shallow fried veggies ~91kcal (2g P, 8g C, 5g F)",
+      "notes": ""
     }
   ],
   "created": "2026-05-27",
-  "last_updated": "2026-06-03"
+  "last_updated": "2026-06-17"
 }
