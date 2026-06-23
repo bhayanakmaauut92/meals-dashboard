@@ -353,8 +353,19 @@
       "fat_g": 20,
       "breakdown": "100g boiled rice ~130kcal (3g P, 28g C, 1g F) | 120g homemade chicken kheema ~240kcal (25g P, 2g C, 14g F) | 70g shallow fried veggies ~91kcal (2g P, 8g C, 5g F)",
       "notes": ""
+    },
+    {
+      "date": "2026-06-23",
+      "time": "Meal 1 - Pasta + Butter Chicken",
+      "foods": "88g dry pasta boiled + 240g homemade butter chicken (less cream, less oil)",
+      "calories": 630,
+      "protein_g": 45.7,
+      "carbs_g": 75.0,
+      "fat_g": 18.1,
+      "breakdown": "88g dry pasta boiled ~308kcal (9.7g P, 64.2g C, 1.3g F) | 240g homemade butter chicken (less cream/oil) ~322kcal (36.0g P, 10.8g C, 16.8g F)",
+      "notes": "First meal of the day"
     }
   ],
   "created": "2026-05-27",
-  "last_updated": "2026-06-17"
+  "last_updated": "2026-06-23"
 }
