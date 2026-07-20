@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>HabitForge</title>
+  <meta name="theme-color" content="#121212" />
+  <link rel="manifest" href="manifest.json" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f8f9fa;
+      --surface: #ffffff;
+      --text: #1a1a1a;
+      --text2: #6b7280;
+      --border: #e5e7eb;
+      --accent: #3b82f6;
+    }
+    [data-theme="dark"] {
+      --bg: #121212;
+      --surface: #1e1e1e;
+      --text: #f5f5f5;
+      --text2: #9ca3af;
+      --border: #2d2d2d;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100dvh;
+      -webkit-font-smoothing: antialiased;
+    }
+    .app {
+      max-width: 480px;
+      margin: 0 auto;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 20;
+      border-bottom: 1px solid var(--border);
+    }
+    .logo { font-weight: 700; font-size: 1.25rem; letter-spacing: -0.02em; }
+    .header-actions { display: flex; gap: 12px; align-items: center; }
+    .icon-btn {
+      width: 40px; height: 40px;
+      border: none; background: transparent;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; cursor: pointer; color: var(--text);
+    }
+    .icon-btn:active { background: var(--border); }
+    
+    main { flex: 1; padding: 16px 16px 100px; overflow-y: auto; }
+    
+    .habit-card {
+      background: var(--surface);
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 14px;
+      border: 1px solid var(--border);
+      transition: transform 0.15s;
+    }
+    .habit-card:active { transform: scale(0.985); }
+    .habit-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+    .habit-info { display: flex; gap: 12px; align-items: center; }
+    .habit-emoji { font-size: 1.8rem; }
+    .habit-name { font-weight: 600; font-size: 1.05rem; }
+    .habit-streak { font-size: 0.85rem; color: var(--text2); margin-top: 2px; }
+    .check-btn {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: 2.5px solid;
+      background: transparent;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      transition: all 0.2s cubic-bezier(0.2,0,0,1);
+      flex-shrink: 0;
+    }
+    .check-btn.done {
+      color: white !important;
+    }
+    .check-btn:active { transform: scale(0.9); }
+    
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(16, 1fr);
+      gap: 3px;
+    }
+    .tile {
+      aspect-ratio: 1;
+      border-radius: 3px;
+      background: rgba(0,0,0,0.06);
+    }
+    [data-theme="dark"] .tile { background: rgba(255,255,255,0.08); }
+    .tile.filled { opacity: 1; }
+    
+    .empty-state {
+      text-align: center;
+      padding: 80px 24px;
+      color: var(--text2);
+    }
+    .empty-state h2 { color: var(--text); margin: 16px 0 8px; font-size: 1.3rem; }
+    
+    /* FAB */
+    .fab {
+      position: fixed;
+      bottom: 28px;
+      right: max(20px, calc(50% - 220px));
+      width: 60px; height: 60px;
+      border-radius: 18px;
+      background: var(--text);
+      color: var(--bg);
+      border: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.2);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 30;
+      transition: transform 0.2s;
+    }
+    .fab:active { transform: scale(0.92); }
+    
+    /* Modal */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 100;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--surface);
+      width: 100%;
+      max-width: 480px;
+      border-radius: 24px 24px 0 0;
+      padding: 24px 20px 40px;
+      max-height: 90dvh;
+      overflow-y: auto;
+      animation: slideUp 0.3s ease;
+    }
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+    .modal h2 { font-size: 1.35rem; margin-bottom: 20px; }
+    .form-group { margin-bottom: 18px; }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text2);
+      margin-bottom: 6px;
+    }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 1rem;
+      font-family: inherit;
+    }
+    .form-group textarea { resize: vertical; min-height: 70px; }
+    .color-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .color-swatch {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 3px solid transparent;
+      cursor: pointer;
+    }
+    .color-swatch.selected { border-color: var(--text); }
+    .emoji-grid {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 8px;
+      max-height: 160px;
+      overflow-y: auto;
+    }
+    .emoji-btn {
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      border-radius: 8px;
+    }
+    .emoji-btn:hover, .emoji-btn.selected { background: var(--border); }
+    
+    .btn-row { display: flex; gap: 12px; margin-top: 24px; }
+    .btn {
+      flex: 1;
+      padding: 14px;
+      border-radius: 14px;
+      font-weight: 600;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .btn-primary { background: var(--text); color: var(--bg); }
+    .btn-secondary { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
+    
+    /* Settings */
+    .settings-list { list-style: none; }
+    .settings-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+    }
+    
+    .pro-badge {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: white;
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="app" id="app">
+    <header>
+      <div class="logo">HabitForge</div>
+      <div class="header-actions">
+        <button class="icon-btn" id="themeBtn" title="Toggle theme">🌓</button>
+        <button class="icon-btn" id="settingsBtn" title="Settings">⚙️</button>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- Habits rendered here -->
+    </main>
+
+    <button class="fab" id="addBtn">+</button>
+  </div>
+
+  <!-- Add / Edit Modal -->
+  <div class="modal-overlay" id="habitModal">
+    <div class="modal">
+      <h2 id="modalTitle">New Habit</h2>
+      <div class="form-group">
+        <label>Emoji</label>
+        <div class="emoji-grid" id="emojiGrid"></div>
+      </div>
+      <div class="form-group">
+        <label>Name *</label>
+        <input type="text" id="habitName" placeholder="e.g. Morning Run" maxlength="40" />
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea id="habitDesc" placeholder="Optional note..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>Color</label>
+        <div class="color-row" id="colorRow"></div>
+      </div>
+      <div class="form-group">
+        <label>Target per day</label>
+        <select id="habitTarget">
+          <option value="1">1 time</option>
+          <option value="2">2 times</option>
+          <option value="3">3 times</option>
+          <option value="5">5 times</option>
+          <option value="10">10 times</option>
+        </select>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-secondary" id="cancelBtn">Cancel</button>
+        <button class="btn btn-primary" id="saveBtn">Save Habit</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings Modal -->
+  <div class="modal-overlay" id="settingsModal">
+    <div class="modal">
+      <h2>Settings</h2>
+      <ul class="settings-list">
+        <li onclick="exportData()">
+          <span>Export Data (JSON)</span>
+          <span>→</span>
+        </li>
+        <li>
+          <label for="importFile" style="cursor:pointer; width:100%; display:flex; justify-content:space-between;">
+            <span>Import Data</span>
+            <span>→</span>
+          </label>
+          <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)" />
+        </li>
+        <li onclick="clearAllData()">
+          <span style="color:#ef4444">Clear All Data</span>
+        </li>
+      </ul>
+      <p style="margin-top:24px; font-size:0.85rem; color:var(--text2); text-align:center;">
+        HabitForge v1.0 · Privacy first · Local only
+      </p>
+      <button class="btn btn-secondary" style="margin-top:16px; width:100%" onclick="closeSettings()">Close</button>
+    </div>
+  </div>
+
+  <script>
+    // ========== DATA ==========
+    const COLORS = [
+      '#EF4444','#F97316','#EAB308','#22C55E','#14B8A6',
+      '#06B6D4','#3B82F6','#6366F1','#8B5CF6','#A855F7',
+      '#EC4899','#F43F5E'
+    ];
+    const EMOJIS = ['🏃','📚','💧','🧘','🏋️','🥗','😴','✍️','🎸','🧠','💊','🚭','🧹','💰','🎯','☀️','🌙','☕','🚶','🍎'];
+
+    let habits = JSON.parse(localStorage.getItem('habitforge_habits') || '[]');
+    let editingId = null;
+    let selectedEmoji = '🏃';
+    let selectedColor = COLORS[6];
+
+    // ========== HELPERS ==========
+    function save() {
+      localStorage.setItem('habitforge_habits', JSON.stringify(habits));
+    }
+    function todayKey() {
+      const d = new Date();
+      return d.toISOString().slice(0,10);
+    }
+    function getCompletions(habit, dateStr) {
+      return (habit.completions && habit.completions[dateStr]) || 0;
+    }
+    function setCompletion(habit, dateStr, count) {
+      if (!habit.completions) habit.completions = {};
+      if (count <= 0) delete habit.completions[dateStr];
+      else habit.completions[dateStr] = count;
+    }
+    function calcStreak(habit) {
+      let streak = 0;
+      const d = new Date();
+      for (let i = 0; i < 400; i++) {
+        const key = d.toISOString().slice(0,10);
+        const count = getCompletions(habit, key);
+        if (count >= (habit.target || 1)) {
+          streak++;
+          d.setDate(d.getDate() - 1);
+        } else if (i === 0) {
+          // today not done yet — check yesterday
+          d.setDate(d.getDate() - 1);
+          continue;
+        } else {
+          break;
+        }
+      }
+      return streak;
+    }
+    function getLastNDays(n = 112) { // ~16 weeks
+      const days = [];
+      const d = new Date();
+      for (let i = n - 1; i >= 0; i--) {
+        const dd = new Date(d);
+        dd.setDate(d.getDate() - i);
+        days.push(dd.toISOString().slice(0,10));
+      }
+      return days;
+    }
+
+    // ========== RENDER ==========
+    function render() {
+      const main = document.getElementById('main');
+      if (habits.length === 0) {
+        main.innerHTML = `
+          <div class="empty-state">
+            <div style="font-size:3rem">🌱</div>
+            <h2>No habits yet</h2>
+            <p>Tap the + button to create your first habit and start filling beautiful tiles.</p>
+          </div>`;
+        return;
+      }
+
+      const days = getLastNDays(112);
+      main.innerHTML = habits.map(h => {
+        const streak = calcStreak(h);
+        const todayCount = getCompletions(h, todayKey());
+        const done = todayCount >= (h.target || 1);
+        const color = h.color || '#3B82F6';
+
+        const tiles = days.map(day => {
+          const c = getCompletions(h, day);
+          const filled = c > 0;
+          const opacity = Math.min(1, 0.4 + (c / (h.target || 1)) * 0.6);
+          return `<div class="tile ${filled ? 'filled' : ''}" style="${filled ? `background:${color};opacity:${opacity}` : ''}"></div>`;
+        }).join('');
+
+        return `
+          <div class="habit-card" data-id="${h.id}">
+            <div class="habit-top">
+              <div class="habit-info">
+                <div class="habit-emoji">${h.emoji || '⭐'}</div>
+                <div>
+                  <div class="habit-name">${escapeHtml(h.name)}</div>
+                  <div class="habit-streak">🔥 ${streak} day streak</div>
+                </div>
+              </div>
+              <button class="check-btn ${done ? 'done' : ''}" 
+                      style="border-color:${color}; ${done ? `background:${color}` : `color:${color}`}"
+                      onclick="toggleToday('${h.id}')">
+                ${done ? '✓' : ''}
+              </button>
+            </div>
+            <div class="grid">${tiles}</div>
+          </div>`;
+      }).join('');
+    }
+
+    function escapeHtml(t) {
+      const d = document.createElement('div');
+      d.textContent = t;
+      return d.innerHTML;
+    }
+
+    // ========== ACTIONS ==========
+    function toggleToday(id) {
+      const h = habits.find(x => x.id === id);
+      if (!h) return;
+      const key = todayKey();
+      const current = getCompletions(h, key);
+      const target = h.target || 1;
+      if (current >= target) {
+        setCompletion(h, key, 0);
+      } else {
+        setCompletion(h, key, current + 1);
+      }
+      save();
+      render();
+    }
+
+    function openAddModal(habit = null) {
+      editingId = habit ? habit.id : null;
+      document.getElementById('modalTitle').textContent = habit ? 'Edit Habit' : 'New Habit';
+      document.getElementById('habitName').value = habit ? habit.name : '';
+      document.getElementById('habitDesc').value = habit ? (habit.description || '') : '';
+      document.getElementById('habitTarget').value = habit ? (habit.target || 1) : 1;
+      selectedEmoji = habit ? habit.emoji : '🏃';
+      selectedColor = habit ? habit.color : COLORS[6];
+      renderEmojis();
+      renderColors();
+      document.getElementById('habitModal').classList.add('open');
+    }
+
+    function closeModal() {
+      document.getElementById('habitModal').classList.remove('open');
+    }
+
+    function saveHabit() {
+      const name = document.getElementById('habitName').value.trim();
+      if (!name) { alert('Please enter a name'); return; }
+
+      // Free limit simulation
+      if (!editingId && habits.length >= 4) {
+        if (!confirm('Free plan is limited to 4 habits.\n\n(This is a demo of the Pro paywall. Continue anyway?)')) return;
+      }
+
+      if (editingId) {
+        const h = habits.find(x => x.id === editingId);
+        h.name = name;
+        h.description = document.getElementById('habitDesc').value.trim();
+        h.emoji = selectedEmoji;
+        h.color = selectedColor;
+        h.target = parseInt(document.getElementById('habitTarget').value);
+      } else {
+        habits.push({
+          id: crypto.randomUUID(),
+          name,
+          description: document.getElementById('habitDesc').value.trim(),
+          emoji: selectedEmoji,
+          color: selectedColor,
+          target: parseInt(document.getElementById('habitTarget').value),
+          completions: {},
+          createdAt: new Date().toISOString()
+        });
+      }
+      save();
+      closeModal();
+      render();
+    }
+
+    function renderEmojis() {
+      const grid = document.getElementById('emojiGrid');
+      grid.innerHTML = EMOJIS.map(e => 
+        `<button class="emoji-btn ${e === selectedEmoji ? 'selected' : ''}" onclick="selectedEmoji='${e}';renderEmojis()">${e}</button>`
+      ).join('');
+    }
+    function renderColors() {
+      const row = document.getElementById('colorRow');
+      row.innerHTML = COLORS.map(c => 
+        `<div class="color-swatch ${c === selectedColor ? 'selected' : ''}" style="background:${c}" onclick="selectedColor='${c}';renderColors()"></div>`
+      ).join('');
+    }
+
+    // Theme
+    function applyTheme() {
+      const theme = localStorage.getItem('habitforge_theme') || 'system';
+      if (theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+      }
+    }
+    document.getElementById('themeBtn').onclick = () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('habitforge_theme', next);
+      applyTheme();
+    };
+
+    // Settings
+    function openSettings() { document.getElementById('settingsModal').classList.add('open'); }
+    function closeSettings() { document.getElementById('settingsModal').classList.remove('open'); }
+
+    function exportData() {
+      const blob = new Blob([JSON.stringify({ habits, exportedAt: new Date().toISOString() }, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `habitforge-backup-${todayKey()}.json`;
+      a.click();
+    }
+    function importData(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        try {
+          const data = JSON.parse(ev.target.result);
+          if (data.habits && Array.isArray(data.habits)) {
+            if (confirm(`Import ${data.habits.length} habits? This will replace current data.`)) {
+              habits = data.habits;
+              save();
+              render();
+              closeSettings();
+              alert('Import successful!');
+            }
+          } else alert('Invalid file');
+        } catch { alert('Invalid JSON'); }
+      };
+      reader.readAsText(file);
+    }
+    function clearAllData() {
+      if (confirm('Delete ALL habits and progress? This cannot be undone.')) {
+        habits = [];
+        save();
+        render();
+        closeSettings();
+      }
+    }
+
+    // Event listeners
+    document.getElementById('addBtn').onclick = () => openAddModal();
+    document.getElementById('cancelBtn').onclick = closeModal;
+    document.getElementById('saveBtn').onclick = saveHabit;
+    document.getElementById('settingsBtn').onclick = openSettings;
+    document.getElementById('habitModal').onclick = (e) => { if (e.target === e.currentTarget) closeModal(); };
+    document.getElementById('settingsModal').onclick = (e) => { if (e.target === e.currentTarget) closeSettings(); };
+
+    // Long press for edit (simple)
+    let pressTimer;
+    document.getElementById('main').addEventListener('touchstart', (e) => {
+      const card = e.target.closest('.habit-card');
+      if (!card) return;
+      pressTimer = setTimeout(() => {
+        const id = card.dataset.id;
+        const h = habits.find(x => x.id === id);
+        if (h && confirm(`Edit or delete "${h.name}"?\n\nOK = Edit\nCancel = Delete`)) {
+          openAddModal(h);
+        } else if (h) {
+          if (confirm('Delete this habit permanently?')) {
+            habits = habits.filter(x => x.id !== id);
+            save();
+            render();
+          }
+        }
+      }, 600);
+    });
+    document.getElementById('main').addEventListener('touchend', () => clearTimeout(pressTimer));
+    document.getElementById('main').addEventListener('touchmove', () => clearTimeout(pressTimer));
+
+    // Init
+    applyTheme();
+    render();
+  </script>
+</body>
+</html>

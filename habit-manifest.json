@@ -1,0 +1,10 @@
+{
+  "name": "HabitForge",
+  "short_name": "HabitForge",
+  "description": "Beautiful tile-based habit tracker",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#121212",
+  "theme_color": "#121212",
+  "orientation": "portrait"
+}
