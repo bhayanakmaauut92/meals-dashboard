@@ -599,6 +599,574 @@ body {
   .planned-card .p-food { font-size: 14px; color: #1d1d1f; flex: 1; }
   .planned-card .p-cals { font-size: 13px; font-weight: 600; color: #d4a040; }
 </style>
+<style id="liquid-skin">
+/* ══════════════════════════════════════════════════════════════
+   LIQUID GLASS SKIN — bento colour-block layout, dark + light
+   Tokens first. Nothing here changes data; only surfaces/type.
+   ══════════════════════════════════════════════════════════════ */
+
+:root,
+[data-theme="dark"] {
+  --canvas:      #0A0A0B;
+  --canvas-2:    #101012;
+  --tile:        #16161A;
+  --tile-2:      #1E1E23;
+  --ink:         #F4F4F6;
+  --ink-2:       #A0A0A8;
+  --ink-3:       #6E6E77;
+  --hair:        rgba(255,255,255,0.07);
+  --hair-2:      rgba(255,255,255,0.12);
+
+  --orange:      #FF5A1F;
+  --blue:        #3B5BFD;
+  --yellow:      #FFD84D;
+  --mint:        #BFE8D9;
+  --green:       #17453A;
+  --pink:        #F6D8E4;
+  --white:       #FFFFFF;
+
+  --on-orange:   #120600;
+  --on-blue:     #FFFFFF;
+  --on-yellow:   #1A1200;
+  --on-mint:     #06201A;
+  --on-green:    #DFF3EA;
+  --on-white:    #0A0A0B;
+
+  --glass:       rgba(22,22,26,0.55);
+  --glass-brd:   rgba(255,255,255,0.10);
+  --glass-hl:    rgba(255,255,255,0.30);
+  --shadow:      0 18px 50px rgba(0,0,0,0.45);
+  --blob-a:      rgba(255,90,31,0.20);
+  --blob-b:      rgba(59,91,253,0.18);
+}
+
+[data-theme="light"] {
+  --canvas:      #F1F0EC;
+  --canvas-2:    #FFFFFF;
+  --tile:        #FFFFFF;
+  --tile-2:      #F7F6F1;
+  --ink:         #0A0A0B;
+  --ink-2:       #6B6B73;
+  --ink-3:       #94949C;
+  --hair:        rgba(0,0,0,0.08);
+  --hair-2:      rgba(0,0,0,0.14);
+
+  --orange:      #FF5A1F;
+  --blue:        #3B5BFD;
+  --yellow:      #FFD84D;
+  --mint:        #BFE8D9;
+  --green:       #17453A;
+  --pink:        #F6D8E4;
+  --white:       #FFFFFF;
+
+  --on-orange:   #120600;
+  --on-blue:     #FFFFFF;
+  --on-yellow:   #1A1200;
+  --on-mint:     #06201A;
+  --on-green:    #DFF3EA;
+  --on-white:    #0A0A0B;
+
+  --glass:       rgba(255,255,255,0.62);
+  --glass-brd:   rgba(255,255,255,0.85);
+  --glass-hl:    rgba(255,255,255,0.95);
+  --shadow:      0 14px 40px rgba(20,18,12,0.10);
+  --blob-a:      rgba(255,90,31,0.16);
+  --blob-b:      rgba(59,91,253,0.12);
+}
+
+/* ── canvas ─────────────────────────────────────────────────── */
+html { background: var(--canvas); }
+body {
+  background: var(--canvas) !important;
+  color: var(--ink) !important;
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif !important;
+  font-size: 16px;
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+  position: relative;
+  overflow-x: hidden;
+  transition: background .45s ease, color .45s ease;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: -20vh -20vw;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(38vw 38vw at 18% 8%,  var(--blob-a), transparent 62%),
+    radial-gradient(42vw 42vw at 88% 22%, var(--blob-b), transparent 64%),
+    radial-gradient(46vw 46vw at 60% 96%, var(--blob-a), transparent 68%);
+  filter: blur(18px);
+  transition: background .45s ease;
+}
+body > * { position: relative; z-index: 1; }
+
+/* ── theme toggle ───────────────────────────────────────────── */
+.theme-toggle {
+  position: fixed;
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  right: 20px;
+  z-index: 90;
+  width: 54px; height: 54px;
+  display: grid; place-items: center;
+  border-radius: 999px;
+  border: 1px solid var(--glass-brd);
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(26px) saturate(180%);
+  backdrop-filter: blur(26px) saturate(180%);
+  box-shadow: var(--shadow), inset 0 1px 0 var(--glass-hl);
+  color: var(--ink);
+  font-size: 19px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform .18s cubic-bezier(.2,.8,.3,1), background .45s ease, box-shadow .3s;
+}
+.theme-toggle:hover  { transform: scale(1.06); }
+.theme-toggle:active { transform: scale(.94); }
+.theme-toggle svg { width: 21px; height: 21px; display: block; }
+.tg-sun  { display: none; }
+.tg-moon { display: block; }
+[data-theme="light"] .tg-sun  { display: block; }
+[data-theme="light"] .tg-moon { display: none; }
+
+/* ── nav: liquid glass pill rail ────────────────────────────── */
+.nav {
+  position: sticky; top: 0; z-index: 80;
+  display: flex; flex-wrap: nowrap !important;
+  justify-content: flex-start !important;
+  gap: 8px;
+  padding: 12px 16px;
+  max-width: none !important;
+  margin: 0 0 4px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-bottom: 1px solid var(--hair);
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  backdrop-filter: blur(30px) saturate(180%);
+  box-shadow: inset 0 1px 0 var(--glass-hl);
+  transition: background .45s ease;
+}
+.nav::-webkit-scrollbar { display: none; }
+.nav button {
+  flex: 0 0 auto;
+  border: 1px solid var(--hair-2) !important;
+  background: var(--tile-2) !important;
+  color: var(--ink-2) !important;
+  border-radius: 999px !important;
+  padding: 9px 15px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform .16s cubic-bezier(.2,.8,.3,1), background .3s, color .3s, border-color .3s;
+}
+.nav button:active { transform: scale(.95); }
+.nav button.active {
+  background: var(--orange) !important;
+  border-color: transparent !important;
+  color: var(--on-orange) !important;
+  box-shadow: 0 8px 22px rgba(255,90,31,0.35);
+}
+[data-theme="light"] .nav button.active { box-shadow: 0 8px 22px rgba(255,90,31,0.30); }
+
+/* ── header: hero tile + macro tiles ────────────────────────── */
+.header {
+  background: transparent !important;
+  padding: 22px 16px 6px !important;
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: left !important;
+  color: var(--ink) !important;
+  display: grid;
+  gap: 10px;
+}
+.header h1,
+.header .sub { display: none; }
+
+.hero {
+  background: var(--orange);
+  color: var(--on-orange);
+  border-radius: 30px;
+  padding: 22px 24px 20px;
+  box-shadow: 0 18px 40px rgba(255,90,31,0.22), inset 0 1px 0 rgba(255,255,255,0.35);
+  position: relative;
+  overflow: hidden;
+}
+.hero::after {
+  content: "";
+  position: absolute; right: -40px; top: -60px;
+  width: 200px; height: 200px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.35), transparent 70%);
+  pointer-events: none;
+}
+.hero .eyebrow {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  opacity: .72;
+}
+.hero .hero-cal {
+  display: flex; align-items: baseline; gap: 10px;
+  margin-top: 6px;
+}
+.hero .hero-cal .n {
+  font-size: 62px; font-weight: 700;
+  letter-spacing: -0.045em; line-height: .95;
+  font-variant-numeric: tabular-nums;
+}
+.hero .hero-cal .u {
+  font-size: 15px; font-weight: 600; opacity: .70;
+  letter-spacing: -0.01em;
+}
+.hero .hero-sub {
+  margin-top: 8px;
+  font-size: 13px; font-weight: 500; opacity: .72;
+}
+
+/* macro tiles */
+.macro-ring {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px !important;
+  margin-top: 0 !important;
+  justify-content: stretch !important;
+}
+.macro-chip {
+  border-radius: 24px !important;
+  padding: 16px 16px 14px !important;
+  text-align: left !important;
+  min-width: 0 !important;
+  border: none !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.30);
+  transition: transform .2s cubic-bezier(.2,.8,.3,1);
+}
+.macro-chip:active { transform: scale(.97); }
+.macro-chip:nth-child(1) { background: var(--blue) !important;   color: var(--on-blue) !important; }
+.macro-chip:nth-child(2) { background: var(--yellow) !important; color: var(--on-yellow) !important; }
+.macro-chip:nth-child(3) { background: var(--mint) !important;   color: var(--on-mint) !important; }
+
+.macro-chip .chip-label {
+  font-size: 10px !important; font-weight: 700 !important;
+  letter-spacing: 0.12em !important; text-transform: uppercase;
+  color: currentColor !important; opacity: .70;
+}
+.macro-chip .chip-val {
+  font-size: 30px !important; font-weight: 700 !important;
+  letter-spacing: -0.04em !important;
+  color: currentColor !important;
+  margin-top: 6px !important;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.macro-chip .chip-val span { font-size: 15px; font-weight: 600; opacity: .62; margin-left: 2px; }
+.macro-chip .chip-target {
+  font-size: 11px !important; font-weight: 600 !important;
+  color: currentColor !important; opacity: .58;
+  margin-top: 6px !important;
+}
+
+/* ── layout ─────────────────────────────────────────────────── */
+.wrap { max-width: 720px !important; padding: 0 16px 40px !important; }
+.view { animation: fadeUp .38s cubic-bezier(.2,.8,.3,1); }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+/* ── generic tiles ──────────────────────────────────────────── */
+.day-card, .pe-card, .trends-card, .macro-card, .planned-card, .ana-card {
+  background: var(--tile) !important;
+  border: 1px solid var(--hair) !important;
+  border-radius: 26px !important;
+  box-shadow: none !important;
+  backdrop-filter: none;
+  transition: background .45s ease, border-color .45s ease;
+}
+
+/* day card */
+.day-card { margin: 10px 0 !important; overflow: hidden; }
+.day-header {
+  padding: 20px 22px 16px !important;
+  border-bottom: 1px solid var(--hair) !important;
+}
+.day-header .day-name {
+  font-size: 19px !important; font-weight: 700 !important;
+  letter-spacing: -0.03em; color: var(--ink) !important;
+}
+.day-header .day-name span {
+  font-size: 12px !important; font-weight: 600 !important;
+  color: var(--ink-3) !important;
+  margin-left: 8px; letter-spacing: 0.02em;
+}
+.day-header .day-total {
+  font-size: 24px !important; font-weight: 700 !important;
+  color: var(--orange) !important;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap !important;
+  flex-shrink: 0;
+}
+
+.day-header { flex-wrap: nowrap !important; gap: 12px !important; }
+.day-header .day-name { flex: 1 1 auto; min-width: 0; }
+.day-header .day-name span { display: inline !important; white-space: nowrap; }
+
+/* daily progress bar inside a day card */
+.daily-bar { border-bottom: 1px solid var(--hair) !important; margin: 0 22px !important; }
+.daily-bar .bar-bg { background: var(--hair) !important; height: 6px !important; }
+.daily-bar .bar-fill { background: linear-gradient(90deg, var(--mint), var(--orange)) !important; }
+.daily-bar .bar-labels { color: var(--ink-3) !important; font-size: 10px !important; }
+
+/* meal rows */
+.meal-entry {
+  padding: 15px 22px !important;
+  border-bottom: 1px solid var(--hair) !important;
+  gap: 12px !important;
+  transition: background .2s;
+}
+.meal-entry:hover { background: var(--tile-2); }
+.meal-entry:last-child { border-bottom: none !important; }
+.meal-icon { font-size: 19px !important; width: 26px !important; opacity: .9; }
+.meal-time {
+  font-size: 11px !important; font-weight: 700 !important;
+  color: var(--ink-3) !important;
+  min-width: 54px !important;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding-top: 3px !important;
+}
+.meal-foods { font-size: 15px !important; color: var(--ink) !important; line-height: 1.45 !important; }
+.meal-notes { font-size: 12px !important; color: var(--ink-3) !important; margin-top: 3px !important; }
+.meal-cal {
+  font-size: 16px !important; font-weight: 700 !important;
+  color: var(--orange) !important;
+  min-width: 64px !important;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+}
+
+/* macro tags */
+.macro-tag {
+  font-size: 10px !important; font-weight: 700 !important;
+  padding: 3px 8px !important;
+  border-radius: 999px !important;
+  letter-spacing: 0.02em;
+}
+.macro-tag.p { background: var(--mint) !important; color: var(--on-mint) !important; }
+.macro-tag.c { background: var(--yellow) !important; color: var(--on-yellow) !important; }
+.macro-tag.f { background: var(--blue) !important; color: var(--on-blue) !important; }
+
+/* ── trend card ─────────────────────────────────────────────── */
+.trends-card { padding: 20px 22px !important; margin: 10px 0 !important; }
+.trends-title {
+  font-size: 12px !important; font-weight: 700 !important;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--ink-3) !important; margin-bottom: 14px !important;
+  border-bottom: none !important;
+}
+.trend-item { padding: 11px 0 !important; border-bottom: 1px solid var(--hair) !important; }
+.trend-item:last-child { border-bottom: none !important; }
+.trend-label { font-size: 13px !important; font-weight: 600 !important; color: var(--ink) !important; }
+.trend-cal { font-size: 13px !important; font-weight: 700 !important; color: var(--orange) !important; font-variant-numeric: tabular-nums; }
+.trend-bar-bg { height: 6px !important; background: var(--hair) !important; border-radius: 999px !important; margin-top: 7px !important; }
+.trend-bar-fill { background: var(--orange) !important; border-radius: 999px !important; }
+.trend-meta { font-size: 10px !important; color: var(--ink-3) !important; margin-top: 6px !important; letter-spacing: 0.03em; }
+.trend-meta strong, .trend-header strong, .trend-cal strong { color: var(--ink) !important; font-weight: 700 !important; }
+
+/* ── PE card (pink tile) ────────────────────────────────────── */
+.pe-card {
+  background: var(--pink) !important;
+  border-color: transparent !important;
+  color: #2A1220 !important;
+  padding: 4px 0;
+}
+.pe-card .pe-header { padding: 18px 22px !important; border-bottom: 1px solid rgba(42,18,32,0.12) !important; }
+.pe-card .pe-title { font-size: 13px !important; font-weight: 600 !important; color: #2A1220 !important; opacity: .78; letter-spacing: 0.01em; }
+.pe-card .pe-value { font-size: 26px !important; font-weight: 700 !important; color: var(--orange) !important; font-variant-numeric: tabular-nums; }
+.pe-card .pe-sub { color: rgba(42,18,32,0.55) !important; font-size: 11px !important; }
+.pe-row { border-bottom: 1px solid rgba(42,18,32,0.10) !important; padding: 12px 22px !important; }
+.pe-label { color: rgba(42,18,32,0.70) !important; font-size: 13px !important; }
+.pe-stat { color: #2A1220 !important; font-size: 15px !important; }
+.pe-ok { color: #1B7A55 !important; }
+.pe-miss { color: #C0392B !important; }
+.pe-dot { background: rgba(42,18,32,0.12) !important; }
+.pe-dot.done { background: #1B7A55 !important; }
+.pe-dot.miss { background: rgba(42,18,32,0.14) !important; }
+.pe-dot.today { background: var(--yellow) !important; box-shadow: 0 0 0 2px var(--pink), 0 0 0 3px #2A1220 !important; }
+
+/* ── daily macro bars ───────────────────────────────────────── */
+.macro-card { padding: 18px 22px !important; margin: 10px 0 !important; }
+.macro-card-title { font-size: 12px !important; font-weight: 700 !important; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3) !important; border-bottom: none !important; }
+.macro-card-sub { border-bottom: none !important; }
+.macro-card-sub { font-size: 11px !important; color: var(--ink-3) !important; }
+.macro-row { margin: 0 !important; padding: 14px 0 !important; border-bottom: 1px solid var(--hair) !important; }
+.macro-row:last-child { border-bottom: none !important; }
+.macro-row strong, .m-values strong { color: var(--ink) !important; }
+.m-label { font-size: 12px !important; font-weight: 600 !important; color: var(--ink-2) !important; }
+.m-values { font-size: 12px !important; color: var(--ink-3) !important; font-variant-numeric: tabular-nums; }
+.m-bar-bg { height: 6px !important; background: var(--hair) !important; border-radius: 999px !important; }
+.m-bar-fill { border-radius: 999px !important; height: 100% !important; }
+.m-icon { opacity: .9; }
+
+/* ── analytics bento ───────────────────────────────────────── */
+.ana-grid { gap: 10px !important; margin: 10px 0 !important; }
+.ana-card {
+  padding: 20px 16px !important;
+  border-radius: 24px !important;
+  text-align: left !important;
+  position: relative;
+  overflow: hidden;
+}
+.ana-card:nth-child(4n+1) { background: var(--tile) !important; }
+.ana-card:nth-child(4n+2) { background: var(--tile-2) !important; }
+.ana-card .ana-num {
+  font-size: 30px !important; font-weight: 700 !important;
+  letter-spacing: -0.045em !important;
+  color: var(--ink) !important;
+  font-variant-numeric: tabular-nums;
+}
+.ana-card .ana-label {
+  font-size: 10px !important; font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
+  color: var(--ink-3) !important;
+  margin-top: 8px !important;
+}
+.ana-card .ana-sub { font-size: 10px !important; color: var(--ink-3) !important; margin-top: 3px !important; }
+.ana-card .green  { color: #2FBF71 !important; }
+.ana-card .gold   { color: var(--orange) !important; }
+.ana-card .red    { color: #FF5A5A !important; }
+.ana-card .blue   { color: #5AA9FF !important; }
+.ana-card .purple { color: #B98AFF !important; }
+
+/* ── planned / recipes / grocery / expenses ────────────────── */
+.planned-card { padding: 16px 20px !important; margin: 10px 0 !important; }
+.p-header { border-bottom: 1px solid var(--hair) !important; padding-bottom: 10px !important; }
+.p-day { font-size: 14px !important; font-weight: 700 !important; color: var(--ink) !important; }
+.p-meal { border-bottom: 1px solid var(--hair) !important; }
+.p-time { color: var(--ink-3) !important; font-size: 10px !important; font-weight: 700 !important; letter-spacing: 0.08em; text-transform: uppercase; }
+.p-food { color: var(--ink-2) !important; font-size: 13px !important; }
+.p-cals { color: var(--orange) !important; font-size: 12px !important; font-weight: 700 !important; font-variant-numeric: tabular-nums; }
+
+.grocery-chip {
+  background: var(--tile-2) !important;
+  color: var(--ink) !important;
+  border: 1px solid var(--hair) !important;
+  border-radius: 999px !important;
+  font-size: 12px !important;
+  padding: 6px 12px !important;
+}
+
+/* generic text fixes inside tiles */
+.view h2, .view h3, .view h4, .view p, .view li, .view td, .view th, .view label, .view span { color: inherit; }
+.view table { color: var(--ink); }
+.view th { color: var(--ink-3) !important; font-size: 11px !important; letter-spacing: 0.08em; text-transform: uppercase; }
+.view td { border-color: var(--hair) !important; }
+.view input, .view select, .view textarea {
+  background: var(--tile-2) !important;
+  border: 1px solid var(--hair-2) !important;
+  color: var(--ink) !important;
+  border-radius: 14px !important;
+  padding: 10px 12px !important;
+  font-family: inherit;
+}
+.view button:not(.theme-toggle) {
+  border-radius: 999px !important;
+  font-family: inherit;
+  font-weight: 600 !important;
+}
+
+/* footer + empty */
+.footer {
+  color: var(--ink-3) !important;
+  border-top: 1px solid var(--hair) !important;
+  font-size: 11px !important;
+  letter-spacing: 0.04em;
+  padding: 26px 16px !important;
+}
+.empty-state { color: var(--ink-3) !important; }
+.empty-state .icon { opacity: .8; }
+
+/* scrollbar */
+* { scrollbar-width: thin; scrollbar-color: var(--hair-2) transparent; }
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-thumb { background: var(--hair-2); border-radius: 99px; }
+
+/* focus + motion */
+:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; border-radius: 8px; }
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+@media (max-width: 430px) {
+  .hero .hero-cal .n { font-size: 54px; }
+  .macro-chip .chip-val { font-size: 26px !important; }
+  .ana-grid { grid-template-columns: 1fr 1fr !important; }
+}
+</style>
+
+<style id="liquid-inline-overrides">
+/* ── inline-style overrides (generated markup uses hardcoded hex) ── */
+[style*="color:#1d1d1f"], [style*="color: #1d1d1f"] { color: var(--ink) !important; }
+[style*="color:#86868b"], [style*="color: #86868b"] { color: var(--ink-3) !important; }
+[style*="color:#636366"], [style*="color: #636366"] { color: var(--ink-2) !important; }
+[style*="color:#a1a1a6"], [style*="color: #a1a1a6"] { color: var(--ink-2) !important; }
+[style*="color:#d4a040"], [style*="color: #d4a040"] { color: var(--orange) !important; }
+[style*="background:#fff"], [style*="background: #fff"],
+[style*="background:#f9f9fb"], [style*="background:#fafafa"],
+[style*="background:#f5f5f7"], [style*="background:#f0f0f5"] { background: var(--tile-2) !important; }
+[style*="border-bottom:1px solid #f0f0f0"], [style*="border-bottom:1px solid #f5f5f7"] { border-color: var(--hair) !important; }
+[style*="font-size:14px"] { line-height: 1.55; }
+</style>
+
+<style id="liquid-fixes-2">
+/* ── workout / planned rows ─────────────────────────────────── */
+.day-header { flex-wrap: wrap !important; row-gap: 8px !important; align-items: center !important; }
+.day-header .day-name { flex: 1 1 55% !important; min-width: 0; }
+.day-header > div { flex: 0 0 auto; }
+.day-header .day-total { font-size: 20px !important; }
+
+.w-status {
+  font-size: 10px !important; font-weight: 700 !important;
+  padding: 4px 10px !important;
+  border-radius: 999px !important;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+.w-status.completed { background: var(--mint) !important;  color: var(--on-mint) !important; }
+.w-status.pending   { background: var(--yellow) !important; color: var(--on-yellow) !important; }
+.w-status.planned   { background: var(--blue) !important;   color: var(--on-blue) !important; }
+
+.p-meal {
+  display: flex !important; gap: 12px !important;
+  align-items: flex-start !important;
+  border-bottom: 1px solid var(--hair) !important;
+  padding: 11px 22px !important;
+}
+.planned-card .p-meal { padding: 10px 0 !important; }
+.p-meal:last-child { border-bottom: none !important; }
+.p-food { flex: 1 1 auto; min-width: 0; }
+.p-meal > span:last-child { flex: 0 0 auto; }
+
+/* inline white / tinted status blocks from older markup */
+[style*="background:#e8f8ee"] { background: var(--mint) !important; color: var(--on-mint) !important; }
+[style*="background:#fef0e0"] { background: var(--yellow) !important; color: var(--on-yellow) !important; }
+[style*="background:#e4f0fb"] { background: var(--blue) !important; color: var(--on-blue) !important; }
+</style>
+
+<style id="liquid-fixes-3">
+.p-meal { align-items: baseline !important; flex-wrap: nowrap !important; }
+.p-meal .p-food { flex: 1 1 42% !important; min-width: 0 !important; }
+.p-meal > span:last-child { flex: 1 1 58% !important; min-width: 0 !important; text-align: right !important; }
+.planned-card .p-meal .p-food { flex: 1 1 auto !important; }
+</style>
+
+<script>
+(function(){try{
+  var t = localStorage.getItem('fuel-theme');
+  if(!t){ t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'; }
+  document.documentElement.setAttribute('data-theme', t);
+}catch(e){ document.documentElement.setAttribute('data-theme','dark'); }})();
+</script>
 </head>
 <body>
 
@@ -616,24 +1184,26 @@ body {
 
 <!-- ── Header ── -->
 <div class="header">
-  <h1>🏋️ Ryan's Fuel</h1>
-  <p class="sub">Recomp · 182 cm · 114 kg · 2,400 kcal target</p>
-  <div class="today-cal">🔥 today: <strong>0</strong> / <strong>2,400</strong> kcal</div>
+  <div class="hero">
+    <div class="eyebrow">Ryan&rsquo;s Fuel &middot; 2026-05-27</div>
+    <div class="hero-cal"><span class="n">0</span><span class="u">/ 2,400 kcal</span></div>
+    <div class="hero-sub">Recomp &middot; 182 cm &middot; 114 kg</div>
+  </div>
   <div class="macro-ring">
     <div class="macro-chip">
       <div class="chip-label">Protein</div>
-      <div class="chip-val protein">0g</div>
-      <div class="chip-target">target 200g</div>
+      <div class="chip-val">0<span>g</span></div>
+      <div class="chip-target">of 200g</div>
     </div>
     <div class="macro-chip">
       <div class="chip-label">Carbs</div>
-      <div class="chip-val carbs">0g</div>
-      <div class="chip-target">target 200g</div>
+      <div class="chip-val">0<span>g</span></div>
+      <div class="chip-target">of 200g</div>
     </div>
     <div class="macro-chip">
       <div class="chip-label">Fat</div>
-      <div class="chip-val fat">0g</div>
-      <div class="chip-target">target 80g</div>
+      <div class="chip-val">0<span>g</span></div>
+      <div class="chip-target">of 80g</div>
     </div>
   </div>
 </div>
@@ -661,42 +1231,42 @@ body {
               <div class="trend-item">
                 <div class="trend-header">
                   <span class="trend-label">This Week</span>
-                  <span class="trend-cal">645 kcal</span>
+                  <span class="trend-cal">0 kcal</span>
                 </div>
                 <div class="trend-bar-bg">
-                  <div class="trend-bar-fill" style="width:4%;"></div>
+                  <div class="trend-bar-fill" style="width:0%;"></div>
                 </div>
-                <div class="trend-meta">1/7 days tracked · avg <strong>645</strong> kcal/day</div>
+                <div class="trend-meta">0/7 days tracked · avg <strong>0</strong> kcal/day</div>
               </div>
               <div class="trend-item">
                 <div class="trend-header">
                   <span class="trend-label">Last Week</span>
-                  <span class="trend-cal">2244 kcal</span>
+                  <span class="trend-cal">0 kcal</span>
                 </div>
                 <div class="trend-bar-bg">
-                  <div class="trend-bar-fill" style="width:16%;"></div>
+                  <div class="trend-bar-fill" style="width:0%;"></div>
                 </div>
-                <div class="trend-meta">2/7 days tracked · avg <strong>1122</strong> kcal/day</div>
+                <div class="trend-meta">0/7 days tracked · avg <strong>0</strong> kcal/day</div>
               </div>
               <div class="trend-item">
                 <div class="trend-header">
                   <span class="trend-label">This Month</span>
-                  <span class="trend-cal">7045 kcal</span>
+                  <span class="trend-cal">0 kcal</span>
                 </div>
                 <div class="trend-bar-bg">
-                  <div class="trend-bar-fill" style="width:14%;"></div>
+                  <div class="trend-bar-fill" style="width:0%;"></div>
                 </div>
-                <div class="trend-meta">6/25 days tracked · avg <strong>1174</strong> kcal/day</div>
+                <div class="trend-meta">0/21 days tracked · avg <strong>0</strong> kcal/day</div>
               </div>
               <div class="trend-item">
                 <div class="trend-header">
                   <span class="trend-label">Last Month</span>
-                  <span class="trend-cal">10266 kcal</span>
+                  <span class="trend-cal">0 kcal</span>
                 </div>
                 <div class="trend-bar-bg">
-                  <div class="trend-bar-fill" style="width:16%;"></div>
+                  <div class="trend-bar-fill" style="width:0%;"></div>
                 </div>
-                <div class="trend-meta">5/31 days tracked · avg <strong>2053</strong> kcal/day</div>
+                <div class="trend-meta">0/30 days tracked · avg <strong>0</strong> kcal/day</div>
               </div>
               <div class="trend-item">
                 <div class="trend-header">
@@ -1865,7 +2435,7 @@ body {
         <span class="pe-title">📅 Last 30 Days</span>
       </div>
       <div style="padding:16px 24px 20px;line-height:2;">
-        <span class="pe-dot miss" title="❌ 2026-05-27"></span><span class="pe-dot miss" title="❌ 2026-05-28"></span><br style="margin-bottom:4px;"><span class="pe-dot miss" title="❌ 2026-05-29"></span><span class="pe-dot done" title="✅ 2026-05-30"></span><span class="pe-dot miss" title="❌ 2026-05-31"></span><span class="pe-dot done" title="✅ 2026-06-01"></span><span class="pe-dot done" title="✅ 2026-06-02"></span><span class="pe-dot miss" title="❌ 2026-06-03"></span><span class="pe-dot miss" title="❌ 2026-06-04"></span><br style="margin-bottom:4px;"><span class="pe-dot miss" title="❌ 2026-06-05"></span><span class="pe-dot done" title="✅ 2026-06-06"></span><span class="pe-dot miss" title="❌ 2026-06-07"></span><span class="pe-dot miss" title="❌ 2026-06-08"></span><span class="pe-dot miss" title="❌ 2026-06-09"></span><span class="pe-dot miss" title="❌ 2026-06-10"></span><span class="pe-dot miss" title="❌ 2026-06-11"></span><br style="margin-bottom:4px;"><span class="pe-dot miss" title="❌ 2026-06-12"></span><span class="pe-dot done" title="✅ 2026-06-13"></span><span class="pe-dot done" title="✅ 2026-06-14"></span><span class="pe-dot miss" title="❌ 2026-06-15"></span><span class="pe-dot miss" title="❌ 2026-06-16"></span><span class="pe-dot miss" title="❌ 2026-06-17"></span><span class="pe-dot miss" title="❌ 2026-06-18"></span><br style="margin-bottom:4px;"><span class="pe-dot miss" title="❌ 2026-06-19"></span><span class="pe-dot miss" title="❌ 2026-06-20"></span><span class="pe-dot miss" title="❌ 2026-06-21"></span><span class="pe-dot miss" title="❌ 2026-06-22"></span><span class="pe-dot done" title="✅ 2026-06-23"></span><span class="pe-dot done" title="✅ 2026-06-24"></span><span class="pe-dot today" title="Today"></span>
+        <span class="pe-dot miss" title="❌ 2026-09-22"></span><span class="pe-dot miss" title="❌ 2026-09-23"></span><br style="margin-bottom:4px;"><span class="pe-dot miss" title="❌ 2026-09-24"></span><span class="pe-dot miss" title="❌ 2026-09-25"></span><span class="pe-dot miss" title="❌ 2026-09-26"></span><span class="pe-dot miss" title="❌ 2026-09-27"></span><span class="pe-dot miss" title="❌ 2026-09-28"></span><span class="pe-dot miss" title="❌ 2026-09-29"></span><span class="pe-dot miss" title="❌ 2026-09-30"></span><br style="margin-bottom:4px;"><span class="pe-dot miss" title="❌ 2026-10-01"></span><span class="pe-dot miss" title="❌ 2026-10-02"></span><span class="pe-dot miss" title="❌ 2026-10-03"></span><span class="pe-dot miss" title="❌ 2026-10-04"></span><span class="pe-dot miss" title="❌ 2026-10-05"></span><span class="pe-dot miss" title="❌ 2026-10-06"></span><span class="pe-dot miss" title="❌ 2026-10-07"></span><br style="margin-bottom:4px;"><span class="pe-dot miss" title="❌ 2026-10-08"></span><span class="pe-dot miss" title="❌ 2026-10-09"></span><span class="pe-dot miss" title="❌ 2026-10-10"></span><span class="pe-dot miss" title="❌ 2026-10-11"></span><span class="pe-dot miss" title="❌ 2026-10-12"></span><span class="pe-dot miss" title="❌ 2026-10-13"></span><span class="pe-dot miss" title="❌ 2026-10-14"></span><br style="margin-bottom:4px;"><span class="pe-dot miss" title="❌ 2026-10-15"></span><span class="pe-dot miss" title="❌ 2026-10-16"></span><span class="pe-dot miss" title="❌ 2026-10-17"></span><span class="pe-dot miss" title="❌ 2026-10-18"></span><span class="pe-dot miss" title="❌ 2026-10-19"></span><span class="pe-dot miss" title="❌ 2026-10-20"></span><span class="pe-dot today" title="Today"></span>
       </div>
       <div style="padding:0 24px 16px;font-size:12px;color:#86868b;">
         <span class="pe-dot done" style="display:inline-block;margin-right:4px;"></span> Done
@@ -1936,14 +2506,14 @@ body {
 
       <div class="ana-card">
         <div class="ana-label">🔥 Discipline Score</div>
-        <div class="ana-num red">32%</div>
+        <div class="ana-num red">12%</div>
         <div class="ana-sub">Composite of all metrics</div>
       </div>
 
       <div class="ana-card">
         <div class="ana-label">📆 Days Tracked</div>
-        <div class="ana-num blue">11/29</div>
-        <div class="ana-sub">37% meal logging consistency</div>
+        <div class="ana-num blue">11/147</div>
+        <div class="ana-sub">7% meal logging consistency</div>
       </div>
 
       <div class="ana-card">
@@ -1967,7 +2537,7 @@ body {
       <div class="ana-card">
         <div class="ana-label">🔱 PE Streak</div>
         <div class="ana-num red">2d</div>
-        <div class="ana-sub">Best: 2d · 26% 30-day</div>
+        <div class="ana-sub">Best: 2d · 0% 30-day</div>
       </div>
 
       <div class="ana-card">
@@ -1985,12 +2555,12 @@ body {
     </div>
     <div class="macro-card">
       <div class="macro-card-title">📊 This Week Overview</div>
-      <div class="macro-card-sub">Week of 22 June 2026 · 1 days with data</div>
+      <div class="macro-card-sub">Week of 19 October 2026 · 0 days with data</div>
       <div class="macro-row">
         <div class="m-icon">🔥</div>
         <div class="m-label" style="width:90px;">Avg Cals</div>
-        <div class="m-bar-bg"><div class="m-bar-fill cal" style="width:26%;"></div></div>
-        <div class="m-values"><strong>645</strong> / <span class="m-target">2400</span></div>
+        <div class="m-bar-bg"><div class="m-bar-fill cal" style="width:0%;"></div></div>
+        <div class="m-values"><strong>0</strong> / <span class="m-target">2400</span></div>
       </div>
       <div class="macro-row">
         <div class="m-icon">🥩</div>
@@ -2050,6 +2620,15 @@ body {
       
       <div class="trend-item" style="padding:10px 24px;">
         <div class="trend-header">
+          <span class="trend-label">Thu</span>
+          <span class="trend-meta" style="font-weight:600;">0 kcal · P 0g</span>
+        </div>
+        <div class="trend-bar-bg">
+          <div class="trend-bar-fill" style="width:0%;background:#e8e8ed;"></div>
+        </div>
+      </div>
+      <div class="trend-item" style="padding:10px 24px;">
+        <div class="trend-header">
           <span class="trend-label">Fri</span>
           <span class="trend-meta" style="font-weight:600;">0 kcal · P 0g</span>
         </div>
@@ -2087,15 +2666,6 @@ body {
       <div class="trend-item" style="padding:10px 24px;">
         <div class="trend-header">
           <span class="trend-label">Tue</span>
-          <span class="trend-meta" style="font-weight:600;">645 kcal · P 45.7g</span>
-        </div>
-        <div class="trend-bar-bg">
-          <div class="trend-bar-fill" style="width:26%;background:#e34040;"></div>
-        </div>
-      </div>
-      <div class="trend-item" style="padding:10px 24px;">
-        <div class="trend-header">
-          <span class="trend-label">Wed</span>
           <span class="trend-meta" style="font-weight:600;">0 kcal · P 0g</span>
         </div>
         <div class="trend-bar-bg">
@@ -2142,5 +2712,22 @@ body {
   }
 </script>
 
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle light and dark mode" title="Light / dark">
+  <svg class="tg-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+  <svg class="tg-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.2v2.2M12 19.6v2.2M4.2 12H2M22 12h-2.2M6.2 6.2 4.7 4.7M19.3 19.3l-1.5-1.5M17.8 6.2l1.5-1.5M4.7 19.3l1.5-1.5"/></svg>
+</button>
+<script>
+(function(){
+  var btn = document.getElementById('themeToggle');
+  if(!btn) return;
+  btn.addEventListener('click', function(){
+    var cur = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', cur);
+    try { localStorage.setItem('fuel-theme', cur); } catch(e){}
+    document.documentElement.style.colorScheme = cur;
+  });
+  document.documentElement.style.colorScheme = document.documentElement.getAttribute('data-theme');
+})();
+</script>
 </body>
 </html>
